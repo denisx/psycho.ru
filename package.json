@@ -1,0 +1,10 @@
+{
+  "name": "psycho.ru",
+  "version": "5.0.1",
+  "main": "main.js",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.4",
+    "typescript": "^2.1.5"
+  }
+}
