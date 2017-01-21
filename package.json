@@ -3,8 +3,28 @@
   "version": "5.0.1",
   "main": "main.js",
   "devDependencies": {
+    "@types/express": "^4.0.35",
+    "@types/node": "^7.0.0",
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.1.4",
     "typescript": "^2.1.5"
-  }
+  },
+  "description": "главный сайт",
+  "dependencies": {
+    "express": "4.14.0",
+    "vash": "0.12.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmenshih/psycho.ru.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pmenshih/psycho.ru/issues"
+  },
+  "homepage": "https://github.com/pmenshih/psycho.ru#readme"
 }
