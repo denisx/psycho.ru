@@ -21,6 +21,9 @@ var globViews = ["./views/**"];
 
 // режим отладки: компиляция всего, запуск сервера с livereload для статики
 gulp.task("debug", function() {
+  // копирование конфига
+  gulp.src("./config_development.json")
+    .pipe(gulp.dest(dirDebug));
   // копирование шрифтов
   gulp.src(globFonts)
     .pipe(gulp.dest(dirDebug + dirFonts));

@@ -1,6 +1,10 @@
 import * as express from "express";
 // шаблонизатор
 import * as ect from "ect";
+// модуль отправки писем
+import * as nodemailer from "nodemailer"
+// файловая система
+import * as fs from "fs"
 
 let app = express();
 let ectRenderer = ect({
@@ -27,6 +31,9 @@ if(app.get("env") === "development") {
   app.use(require("connect-livereload")());
 }
 
+// получение конфига приложения
+var config = JSON.parse(fs.readFileSync("config_" + app.get("env") + ".json", "utf8"));
+
 // маршрутизация
 // главная
 app.get("/", (req, res) => {
@@ -44,6 +51,31 @@ app.get("/about", (req, res) => {
     year: new Date().getFullYear()
   };
   res.render("about", model);
+});
+// заявка на продукт или событие
+app.get("/callme", (req, res) => {
+  console.log(req.query);
+  var smtpConfig = {
+    service: "Yandex",
+    auth: {
+        user: config.emailRobot.user,
+        pass: config.emailRobot.pass
+    }
+  };
+  var transporter = nodemailer.createTransport(smtpConfig);
+  var mailOptions = {
+    from: '"Психология и бизнес" <robot@psycho.ru>',
+    to: 'p.menshih@gmail.com',
+    subject: 'Заявка на обратный звонок',
+    html: '<b>Hello world ?</b>'
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+          return console.log(error);
+      }
+      console.log('Message sent: ' + info.response);
+  });
+  res.end();
 });
 // 404
 app.use((req, res, next) => {
