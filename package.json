@@ -5,8 +5,9 @@
   "devDependencies": {
     "@types/express": "^4.0.35",
     "@types/node": "^7.0.0",
+    "connect-livereload": "^0.6.0",
     "gulp": "^3.9.1",
-    "gulp-nodemon": "^2.2.1",
+    "gulp-live-server": "0.0.30",
     "gulp-typescript": "^3.1.4",
     "typescript": "^2.1.5"
   },
