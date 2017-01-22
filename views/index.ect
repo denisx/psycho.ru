@@ -1,2 +1,117 @@
 <% extend "_master" %>
-<div>Hello, World!!</div>
+<div class="wrapper">
+    <div class="middle">
+        <div id="fullpage">
+            <div class="section gallery-main-light-holder" id="section0">
+                <div class="swiper-container gallery-main-light">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="background-image:url(/media/images/main_light/izmeryaem-vovlechennost.jpg)">
+                            <div class="l-1260">
+                                <h1 class="page-heading">Измеряем <br>вовлечённость</h1>
+                                <a href="/products/involvement/involvement_research" class="btn">Измерить</a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image:url(/media/images/main_light/provodim-ocenku.jpg)">
+                            <div class="l-1260">
+                                <h1 class="page-heading">Проводим <br>оценку</h1>
+                                <a href="/products/assessment" class="btn">Провести</a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image:url(/media/images/main_light/razvivaem-korporaivnuyu-kulturu.jpg)">
+                            <div class="l-1260">
+                                <h1 class="page-heading">Развиваем <br>корпоративную культуру</h1>
+                                <a href="/products/corpcult/study_of_corpcult" class="btn">Развить</a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image:url(/media/images/main_light/formiruem-poleznye-privychki.jpg)">
+                            <div class="l-1260">
+                                <h1 class="page-heading">Формируем <br>полезные привычки</h1>
+                                <a href="/products/individual_development" class="btn">Сформировать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .gallery-main-light -->
+            </div>
+            <div class="section section2-light" id="section1">
+                <div class="l-1260">
+                    <div class="recall-box-holder">
+                        <em class="date-big">18/02/17</em>
+                        <div class="recall-box">
+                            <div class="teacher-info">
+                                <span>Ведёт: Ниесов Игорь Владимирович</span>
+                            </div>
+                            <h3><a href="/products/individual_development/communications">Тренинг «Профессиональные коммуникации руководителя»</a></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section" id="section2">
+                <ul class="l-4col main-item-list">
+                    <li class="item-vovlechenost">
+                        <div class="holder">
+                            <a href="/products/involvement/involvement_research"><img src="/media/images/ico-vovlechenost.svg" alt="Изображение раздела"></a>
+                            <h3><a href="/products/involvement/involvement_research">Вовлеченность</a></h3>
+                            <div class="text-holder">
+                                <span class="item-text">Благодаря этим исследованиям становятся понятными причины низкой вовлеченности сотрудников и те «тонкие места», где компания теряет деньги и эффективность из-за «человеческого фактора».</span>
+                                <a href="/products/involvement/involvement_research" class="btn">Узнать больше</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-instr-ocenki">
+                        <div class="holder">
+                            <a href="/products/assessment"><img src="/media/images/product2/img-top.svg" alt="Изображение раздела"></a>
+                            <h3><a href="/products/assessment">Инструменты оценки</a></h3>
+                            <div class="text-holder">
+                                <span class="item-text">За 20 лет существования компании создан комплекс инструментов, помогающих решать задачи мотивации и вовлечения сотрудников быстро и качественно. Среди этих инструментов — система психодиагностики «<a href="/products/assessment/professor">Профессор</a>», <a href="/products/assessment/kpmi">KPMI</a>, сервис <a href="/products/assessment/internet_survey">интернет-анкетирования</a> и другие.</span>
+                                <a href="/products/assessment" class="btn">Узнать больше</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-korpkultura">
+                        <div class="holder">
+                            <a href="/products/corpcult/study_of_corpcult"><img src="/media/images/product3/img-top.svg" alt="Изображение раздела"></a>
+                            <h3><a href="/products/corpcult/study_of_corpcult">Корпкультура</a></h3>
+                            <div class="text-holder">
+                                <span class="item-text">Бизнес должен уметь работать с ментальной и эмоциональной сферой. С тем, что находится в сердцах и головах людей. Мы умеем выявлять и влиять на установки — ментальные конструкции, составляющие основу корпоративной культуры.</span>
+                                <a href="/products/corpcult/study_of_corpcult" class="btn">Узнать больше</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-privychki">
+                        <div class="holder">
+                            <a href="/products/individual_development"><img src="/media/images/product4/img-top.svg" alt="Изображение раздела"></a>
+                            <h3><a href="/products/individual_development">Полезные привычки</a></h3>
+                            <div class="text-holder">
+                                <span class="item-text">Современные тренинги страдают недостаточной результативностью. Их эффект ограничивается приятными эмоциями и не затрагивает поведение. Чтобы обучение было результативным, оно должно включать в себя «тренажеры» полезных привычек.</span>
+                                <a href="/products/individual_development" class="btn">Узнать больше</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- #fullpage -->
+    </div><!-- .middle -->
+</div><!-- .wrapper -->
+<% block "scripts" : %>
+  <script src="/js/scrolloverflow.min.js"></script>
+  <script src="/js/jquery.fullPage.min.js"></script>
+  <script src="/js/swiper.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#fullpage').fullpage({
+              anchors: ['firstPage', 'eventPage', 'productPage'],
+              css3: true,
+              scrollOverflow: true
+          });
+          var swiper = new Swiper('.gallery-main-light', {
+              spaceBetween: 0,
+              grabCursor: true,
+              loop:true,
+              loopedSlides: 5,
+              autoplay: 3500,
+              effect: 'fade',
+              autoplayDisableOnInteraction: false
+          });
+      });
+  </script>
+<% end %>
