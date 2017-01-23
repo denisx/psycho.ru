@@ -1,102 +1,49 @@
+// подключение модулей
 var gulp = require("gulp")
   ,gulpts = require("gulp-typescript")
   ,sass = require("gulp-sass")
-  ,environments = require("gulp-environments")
+  ,envs = require("gulp-environments")
   ,clean = require('gulp-clean')
   ,gls = require('gulp-live-server');
 
-var development = environments.development;
-var production = environments.production;
+// переменные
+var dirBuild = envs.production() ? "./release" : "./debug"
+  ,globStatic = "./frontend/static/**/*"
+  ,globSass = "./frontend/sass/*.scss"
+  ,globViews = ["./views/**"]
+  ,globTS = ["./*.ts"]
+  ,tsconfig = gulpts.createProject("tsconfig.json");
 
-var dirDebug = "./debug";
-var dirProd = "./release";
-var dirBuild = production() ? dirProd : dirDebug;
-var dirCss = "/css";
-var dirViews = "/views";
-var globStatic = "./frontend/static/**/*";
-var globSass = "./frontend/sass/*.scss";
-var globViews = ["./views/**"];
-var globTS = ["./*.ts"];
-// применение глобального конфига TypeSCript
-var tsconfig = gulpts.createProject("tsconfig.json");
-// константы с путями и глобами
-
-var dirFonts = "/fonts";
-var dirMedia = "/media";
-var globFonts = "./frontend/fonts/*"
-var globMedia = "./frontend/media/**/*";
-
-var globJs = "./frontend/ts/*.js";
-
-gulp.task("clean", function() {
-  return gulp.src(dirBuild, {read: false})
-    .pipe(clean());
-});
-
-gulp.task("static", function() {
-  return gulp.src(globStatic)
-    .pipe(gulp.dest(dirBuild));
-});
-
-gulp.task("sass", function() {
-  return gulp.src(globSass)
+aClean = () => { return gulp.src(dirBuild, {read: false}).pipe(clean()); }
+aStatic = (_glob) => { return gulp.src(_glob).pipe(gulp.dest(dirBuild)); }
+aSass = (_glob) => {
+  return gulp.src(_glob)
     .pipe(sass())
-    .pipe(gulp.dest(dirBuild + dirCss));
-});
-
-gulp.task("ect", function() {
-  return gulp.src(globViews)
-    .pipe(gulp.dest(dirBuild + dirViews));
-});
-
-gulp.task("tsbe", function() {
-  return gulp.src(globTS)
+    .pipe(gulp.dest(dirBuild + "/css"));
+}
+aEct = (_glob) => { return gulp.src(_glob).pipe(gulp.dest(dirBuild + "/views")); }
+aTsbe = (_glob) => {
+  return gulp.src(_glob)
     .pipe(tsconfig())
     .pipe(gulp.dest(dirBuild));
-});
+}
+aServer = () => {
+  var srv = gls("main.js", { cwd: "./debug" }).start();
+  gulp.watch(globSass, (e) => { aSass(e.path).pipe(srv.notify()); });
+  gulp.watch(globStatic, (e) => { aStatic(e.path).pipe(srv.notify()); });
+  gulp.watch(globViews, (e) => { aStatic(e.path).pipe(srv.notify()); });
+  gulp.watch(globTS, (e) => { aStatic(e.path).on("finish", srv.start.bind(srv)); });
+}
 
-// режим отладки: компиляция всего, запуск сервера с livereload для статики
-gulp.task("debug", function() {
-  // инстанс сервера
-  var server = gls("main.js", {
-    cwd: dirDebug,
-    env: { NODE_ENV: "development" }
-  });
-  // запуск
-  server.start();
-  // вотч для sass
-  gulp.watch(globSass, function (event) {
-    gulp.src(event.path)
-      // просто копируем измененный файл куда нужно
-      .pipe(gulp.dest(dirDebug + dirCss))
-      // подгружаем изменения в сервер
-      .pipe(server.notify());
-  });
-  // вотч для папки media
-  gulp.watch(globMedia, function (event) {
-    gulp.src(event.path)
-      // просто копируем измененный файл куда нужно
-      .pipe(gulp.dest(dirDebug + dirMedia))
-      // подгружаем изменения в сервер
-      .pipe(server.notify());
-  });
-  // вотч для вьюх с livereload,
-  // работает с измененными файлами, а не директроями целиком
-  gulp.watch(globViews, function (event) {
-    gulp.src(event.path)
-      // просто копируем измененный файл куда нужно
-      .pipe(gulp.dest(dirDebug + dirViews))
-      // подгружаем изменения в сервер
-      .pipe(server.notify());
-  });
-  // вотч для TS, также работает индивидуально
-  gulp.watch(globTS, function(event) {
-    gulp.src(event.path)
-      // компиляция TS
-      .pipe(tsconfig())
-      // копирование
-      .pipe(gulp.dest(dirDebug))
-      // перезагрузка сервера
-      .on("finish", server.start.bind(server));
+// режим отладки: очистка debug и компиляция всего, запуск сервера
+gulp.task("debug", () => {
+  aClean().on("finish", () => {
+    aStatic(globStatic).on("finish", () => {
+      aSass(globSass).on("finish", () => {
+        aEct(globViews).on("finish", () => {
+          aTsbe(globTS).on("finish", aServer);
+        });
+      });
+    });
   });
 });
