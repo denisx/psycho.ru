@@ -3,23 +3,18 @@ import * as express from "express";
 import * as ect from "ect";
 // модуль отправки писем
 import * as nodemailer from "nodemailer"
-// файловая система
 import * as fs from "fs"
 
 let app = express();
 let ectRenderer = ect({
   root: __dirname + "/html",
-
   ext : ".html"});
 
-// работа со статическими файлами в media
-app.use('/media', express.static('media'));
-// работа со статическими файлами в css
+// статические файлы
 app.use('/css', express.static('css'));
-// работа со статическими файлами в js
-app.use('/js', express.static('js'));
-// работа со статическими файлами в js
 app.use('/fonts', express.static('fonts'));
+app.use('/js', express.static('js'));
+app.use('/media', express.static('media'));
 
 // подключение шаблонизатора ECT
 app.set("view engine", "ect");
@@ -27,7 +22,6 @@ app.set("views", "./html");
 app.engine("html", ectRenderer.render);
 
 if(app.get("env") === "development") {
-  console.log("Server run in development mode");
   // отключение кэширования для вьюх
   ectRenderer.options.cache = false;
   // подключение livereload
