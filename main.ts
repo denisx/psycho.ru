@@ -8,8 +8,9 @@ import * as fs from "fs"
 
 let app = express();
 let ectRenderer = ect({
-  root: __dirname + "/views",
-  ext : ".ect"});
+  root: __dirname + "/html",
+
+  ext : ".html"});
 
 // работа со статическими файлами в media
 app.use('/media', express.static('media'));
@@ -19,9 +20,11 @@ app.use('/css', express.static('css'));
 app.use('/js', express.static('js'));
 // работа со статическими файлами в js
 app.use('/fonts', express.static('fonts'));
+
 // подключение шаблонизатора ECT
 app.set("view engine", "ect");
-app.engine("ect", ectRenderer.render);
+app.set("views", "./html");
+app.engine("html", ectRenderer.render);
 
 if(app.get("env") === "development") {
   console.log("Server run in development mode");
@@ -32,7 +35,7 @@ if(app.get("env") === "development") {
 }
 
 // получение конфига приложения
-var config = JSON.parse(fs.readFileSync("config_" + app.get("env") + ".json", "utf8"));
+var config = JSON.parse(fs.readFileSync("env_" + app.get("env") + ".json", "utf8"));
 
 // маршрутизация
 // главная
@@ -41,7 +44,7 @@ app.get("/", (req, res) => {
     title: "Психология и бизнес",
     path: req.path
   };
-  res.render("index", model);
+  res.render("index.html", model);
 });
 // о компании
 app.get("/about", (req, res) => {
@@ -50,7 +53,7 @@ app.get("/about", (req, res) => {
     path: req.path,
     year: new Date().getFullYear()
   };
-  res.render("about", model);
+  res.render("about.html", model);
 });
 // заявка на продукт или событие
 app.get("/callme", (req, res) => {
@@ -77,14 +80,12 @@ app.get("/callme", (req, res) => {
   });
   res.end();
 });
-// 404
-app.use((req, res, next) => {
-  res.status(404).render("404");
-});
 // 500
-app.use((req, res, next) => {
-  res.status(500).render("500");
+app.use((err, req, res, next) => {
+  res.status(500).render("500.html");
 });
+// 404
+app.use((req, res, next) => { res.status(404).render("404.html"); });
 
 app.listen(8205, function () {
 });
