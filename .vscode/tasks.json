@@ -12,7 +12,7 @@
     {
       "taskName": "build",
       "args": [
-        "debug"
+        "build"
       ]
     },
     {
