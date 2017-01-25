@@ -1,24 +1,31 @@
-let gulp = require("gulp")
-  ,gulpts = require("gulp-typescript")
-  ,sass = require("gulp-sass")
-  ,envs = require("gulp-environments")
-  ,clean = require('gulp-clean')
-  ,concat = require('gulp-concat')
-  ,filter = require('gulp-filter')
-  ,uglifyJS = require('gulp-uglify')
-  ,cleanCSS = require('gulp-clean-css')
-  ,htmlmin = require('gulp-htmlmin')
-  ,concatCss = require('gulp-concat-css')
-  ,exec = require('child_process').exec
-  ,gls = require('gulp-live-server');
+let gulp = require("gulp"),
+  gulpts = require("gulp-typescript"),
+  sass = require("gulp-sass"),
+  envs = require("gulp-environments"),
+  clean = require('gulp-clean'),
+  concat = require('gulp-concat'),
+  filter = require('gulp-filter'),
+  uglifyJS = require('gulp-uglify'),
+  cleanCSS = require('gulp-clean-css'),
+  htmlmin = require('gulp-htmlmin'),
+  concatCss = require('gulp-concat-css'),
+  exec = require('child_process').exec,
+  gls = require('gulp-live-server');
 
-let dirDebug = "./_debug"
-  ,dirRelease = "./_release"
-  ,outDir = envs.production() ? dirRelease : dirDebug
-  ,tsCompiler = gulpts.createProject("tsconfig.json")
-  ,globCSS = "./css/*.scss"
-  ,globHTML = ["./html/*.html"]
-  ,globTS = ["./js/*.ts", "./*.ts"];
+let dirDebug = "./_debug",
+  dirRelease = "./_release",
+  outDir = envs.production() ? dirRelease : dirDebug,
+  tsCompiler = gulpts.createProject("tsconfig.json"),
+  globCSS = "./css/*.scss",
+  globHTML = ["./html/*.html"],
+  globStatic = ["./fonts/**",
+    "./js/*.js",
+    globCSS,
+    "./main.js",
+    "./backend/**/*.js",
+    "./media/**",
+    "./env_development.json"],
+  globTS = ["./js/*.ts", "./*.ts"];
 
 function doClean() {
   return gulp.src(outDir, {read: false}).pipe(clean());
@@ -43,7 +50,7 @@ function concatJS() {
   //        и удаляем все кроме полученного бандла
   // для этого используется пакет с фильтрами
   let f = filter(['**', '!**/bundle.js'], {restore:true});
-  return gulp.src(outDir + "/js/*.js")
+  return gulp.src(outDir + "/js/**/*.js")
     // применяем фильтр
     .pipe(f)
     .pipe(concat('bundle.js'))
@@ -57,13 +64,7 @@ function concatJS() {
 }
 
 function copyStatic() {
-  return gulp.src([
-        globCSS,
-        "./fonts/**",
-        "./js/*.js",
-        "./media/**",
-        "./env_development.json"], { base: './' })
-    .pipe(gulp.dest(outDir));
+  return gulp.src(globStatic, { base: './' }).pipe(gulp.dest(outDir));
 }
 
 function minifyHTML() {
@@ -87,9 +88,20 @@ function minifyHTML() {
 function devServer() {
   var srv = gls("main.js", { cwd: dirDebug });
   srv.start();
-  gulp.watch(globCSS, (e) => { aSass(e.path).pipe(srv.notify()); });
-  gulp.watch(globHTML, (e) => { aStatic(e.path).pipe(srv.notify()); });
-  gulp.watch(globTS, (e) => { aStatic(e.path).on("finish", srv.start.bind(srv)); });
+  gulp.watch(globCSS, () => { compileSass().pipe(srv.notify()); });
+  gulp.watch(globHTML, () => { minifyHTML().pipe(srv.notify()); });
+  gulp.watch(globTS, (e) => { 
+    compileTS().on("finish", () => {
+      concatJS().on("finish", () => {
+        srv.start.bind(srv);
+      });
+    });
+  });
+  gulp.watch(globStatic, (e) => { 
+    copyStatic().on("finish", () => {
+      srv.start.bind(srv);
+    });
+  });
 }
 
 // универсальный таск билда приложения

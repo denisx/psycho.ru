@@ -1,9 +1,9 @@
-import * as express from "express";
+let express = require("express");
 // шаблонизатор
-import * as ect from "ect";
+let ect = require("ect");
 // модуль отправки писем
-import * as nodemailer from "nodemailer"
-import * as fs from "fs"
+let nodemailer = require("nodemailer");
+let fs = require("fs");
 
 let app = express();
 let ectRenderer = ect({
@@ -30,16 +30,16 @@ if(app.get("env") === "development") {
 
 // получение конфига приложения
 var config = JSON.parse(fs.readFileSync("env_" + app.get("env") + ".json", "utf8"));
-
 // маршрутизация
 // главная
-app.get("/", (req, res) => {
-  var model = {
-    title: "Психология и бизнес",
-    path: req.path
-  };
-  res.render("index.html", model);
-});
+app.use(require("./backend/routing").appRouter);
+// app.get("/", (req, res) => {
+//   var model = {
+//     title: "Психология и бизнес",
+//     path: req.path
+//   };
+//   res.render("index.html", model);
+// });
 // о компании
 app.get("/about", (req, res) => {
   var model = {
