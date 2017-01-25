@@ -1,7 +1,8 @@
 exports.appRouter = (req, res, next) => {
-  let modulePath = "./backend/urls" + req.path;
+  let rootPath = "./urls";
+  let modulePath = `${rootPath}${req.path}`;
   if(req.path === "/") {
-    modulePath = "./backend/urls/index";
+    modulePath = `${rootPath}/index`;
   }
 
   try {

@@ -4,11 +4,7 @@ let express = require("express"),
 let app = express();
 
 // статические файлы
-app.use('/css', express.static('css'));
-app.use('/fonts', express.static('fonts'));
-app.use('/js', express.static('js'));
-app.use('/media', express.static('media'));
-
+app.use(express.static('frontend'));
 
 app.set("views", "./backend/urls");
 app.set("view engine", "ect");
