@@ -1,12 +1,13 @@
 exports.appRouter = (req, res, next) => {
+  let modulePath = "./pages" + req.path;
   if(req.path === "/") {
-    var model = {
-      title: "Психология и бизнес",
-      path: req.path
-    };
-    res.render("index.html", model);
+    modulePath = "./pages/main";
   }
-  else {
+
+  try {
+      require(modulePath).render(req, res);
+  }
+  catch(ex) {
     next();
   }
 }

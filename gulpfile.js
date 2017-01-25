@@ -90,14 +90,14 @@ function devServer() {
   srv.start();
   gulp.watch(globCSS, () => { compileSass().pipe(srv.notify()); });
   gulp.watch(globHTML, () => { minifyHTML().pipe(srv.notify()); });
-  gulp.watch(globTS, (e) => { 
+  gulp.watch(globTS, () => { 
     compileTS().on("finish", () => {
       concatJS().on("finish", () => {
         srv.start.bind(srv);
       });
     });
   });
-  gulp.watch(globStatic, (e) => { 
+  gulp.watch(globStatic, () => { 
     copyStatic().on("finish", () => {
       srv.start.bind(srv);
     });
