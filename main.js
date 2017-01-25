@@ -10,10 +10,10 @@ app.use('/js', express.static('js'));
 app.use('/media', express.static('media'));
 
 
-app.set("views", "./html");
+app.set("views", "./backend/urls");
 app.set("view engine", "ect");
 let ectRenderer = ect({
-  root: __dirname + "/html",
+  root: __dirname + "/backend/urls",
   ext : ".html"});
 app.engine("html", ectRenderer.render); // подключение шаблонизатора ECT
 

@@ -1,75 +1,51 @@
-let gulp = require("gulp"),
-  gulpts = require("gulp-typescript"),
-  sass = require("gulp-sass"),
-  envs = require("gulp-environments"),
-  clean = require('gulp-clean'),
-  concat = require('gulp-concat'),
-  filter = require('gulp-filter'),
-  uglifyJS = require('gulp-uglify'),
-  cleanCSS = require('gulp-clean-css'),
-  htmlmin = require('gulp-htmlmin'),
-  concatCss = require('gulp-concat-css'),
-  exec = require('child_process').exec,
-  gls = require('gulp-live-server');
+let gulp = require("gulp");
+let lintSass = require("gulp-sass");
+let htmlmin = require('gulp-htmlmin');
+let cleanCss = require('gulp-clean-css');
+let concatCss = require('gulp-concat-css');
+let clean = require('gulp-clean');
+let concatJs = require('gulp-concat');
+let gulpts = require("gulp-typescript");
+let env = require("gulp-environments");
+let uglifyJS = require('gulp-uglify');
+let gls = require('gulp-live-server');
+let exec = require('child_process').exec;
 
-let dirDebug = "./_debug",
-  dirRelease = "./_release",
-  outDir = envs.production() ? dirRelease : dirDebug,
-  tsCompiler = gulpts.createProject("tsconfig.json"),
-  globCSS = "./css/*.scss",
-  globHTML = ["./html/*.html"],
-  globStatic = ["./fonts/**",
-    "./js/*.js",
-    globCSS,
-    "./main.js",
-    "./backend/**/*.js",
-    "./media/**",
-    "./env_development.json"],
-  globTS = ["./js/*.ts", "./*.ts"];
+let outDir = env.production() ? "./build/release" : "./build/debug";
 
-function doClean() {
-  return gulp.src(outDir, {read: false}).pipe(clean());
+function rm() {
+  return gulp.src(`${outDir}/*`).pipe(clean());
 }
 
-function compileTS() {
-  return gulp.src(globTS, {base: './'})
-    .pipe(tsCompiler())
-    .pipe(gulp.dest(outDir));
+function sass() {
+  return gulp.src("./src/frontend/css/*.scss")
+      .pipe(lintSass())
+      .pipe(concatCss("bundle.css"))
+      .pipe(cleanCss())
+      .pipe(gulp.dest(`${outDir}/frontend/css`));
 }
 
-function compileSass() {
-  return gulp.src(globCSS)
-    .pipe(sass())
-    .pipe(concatCss("bundle.css"))
-    .pipe(cleanCSS())
-    .pipe(gulp.dest(outDir + "/css"));
+function ts() {
+  return gulp.src("./src/**/*.ts")
+      .pipe(gulpts.createProject("tsconfig.json")())
+      .pipe(gulp.dest(outDir));
 }
 
-function concatJS() {
-  // суть:  в папке JS конкатенируем все файлы, в случае продакшена сжимаем
-  //        и удаляем все кроме полученного бандла
-  // для этого используется пакет с фильтрами
-  let f = filter(['**', '!**/bundle.js'], {restore:true});
-  return gulp.src(outDir + "/js/**/*.js")
-    // применяем фильтр
-    .pipe(f)
-    .pipe(concat('bundle.js'))
-    .pipe(envs.production(uglifyJS()))
-    .pipe(gulp.dest(outDir + "/js"))
-    // сбрасываем фильтр, чтобы вернуть в стрим начальные файлы
-    .pipe(f.restore)
-    // снова фильтруем, чтобы сохранить бандл
-    .pipe(f)
+function jsc() {
+  return gulp.src(`${outDir}/frontend/js/*.js`)
+    .pipe(concatJs('bundle.js'))
+    .pipe(env.production(uglifyJS()))
+    .pipe(gulp.dest(`${outDir}/frontend/js`));
+}
+
+function jsd() {
+  return gulp.src([`${outDir}/frontend/js/*.js`, `!${outDir}/frontend/js/bundle.js`])
     .pipe(clean());
 }
 
-function copyStatic() {
-  return gulp.src(globStatic, { base: './' }).pipe(gulp.dest(outDir));
-}
-
-function minifyHTML() {
-  return gulp.src(globHTML, {base:'./'})
-    .pipe(htmlmin({
+function htmlm() {
+  return gulp.src(`${outDir}/backend/urls/**/*.html`)
+    .pipe(env.production(htmlmin({
       collapseWhitespace: true
       ,collapseBooleanAttributes: true
       ,collapseInlineTagWhitespace: true
@@ -81,65 +57,57 @@ function minifyHTML() {
       ,removeRedundantAttributes: true
       ,removeScriptTypeAttributes: true
       ,removeStyleLinkTypeAttributes: true
-    }))
-    .pipe(gulp.dest(outDir));
+    })))
+    .pipe(gulp.dest(`${outDir}/backend/urls`));
 }
 
-function devServer() {
-  var srv = gls("main.js", { cwd: dirDebug });
+function copy () {
+  return gulp.src(["./backend/**", "./frontend/**", "./main.js", "./config.json"], {base:"./"})
+      .pipe(gulp.dest(outDir));
+  next();
+}
+
+function devSrv() {
+  var srv = gls("main.js", { cwd: outDir });
   srv.start();
-  gulp.watch(globCSS, () => { compileSass().pipe(srv.notify()); });
-  gulp.watch(globHTML, () => { minifyHTML().pipe(srv.notify()); });
-  gulp.watch(globTS, () => { 
-    compileTS().on("finish", () => {
-      concatJS().on("finish", () => {
+  var w1 = gulp.watch(`./backend/**/*.js`);
+  w1.on("all", () => {
+    gulp.src(`./backend/**/*.js`, {base:"./"})
+      .pipe(gulp.dest(outDir))
+      .on("finish", () => {
         srv.start.bind(srv);
+        console.log("server restarted");
       });
-    });
   });
-  gulp.watch(globStatic, () => { 
-    copyStatic().on("finish", () => {
-      srv.start.bind(srv);
-    });
+  var w2 = gulp.watch([`./backend/urls/**/*.html`]);
+  w2.on("all", () => {
+    gulp.src(`./backend/urls/**/*.html`, {base:"./"})
+      .pipe(gulp.dest(outDir))
+      .pipe(srv.notify());
   });
 }
 
-// универсальный таск билда приложения
-gulp.task("build", () => {
-  doClean().on("finish", () => {
-    copyStatic().on("finish", () => {
-      compileTS().on("finish", () => {
-        concatJS().on("finish", () => {
-          compileSass().on("finish", () => {
-            minifyHTML().on("finish", () => {
-              if(envs.development()) {
-                // для dev-среды запускаем сервер 
-                devServer();
-              }
-              else if(envs.production()) {
-                // для продакшена копируем пакетный файл приложения
-                gulp.src('./package.json')
-                  .pipe(gulp.dest(outDir))
-                  .on("finish", () => {
-                    // инсталлируем только dependency пакеты в папку с билдом
-                    exec("npm i --only=prod", {cwd:outDir}, () => {
-                      console.log(process.stderr);
-                    });
-                  });
-              }
-            });
-          });
-        });
+function prodmods(next) {
+  if(env.production()) {
+    gulp.src('./package.json')
+      .pipe(gulp.dest(outDir))
+      .on("finish", () => {
+        // инсталлируем только dependency пакеты в папку с билдом
+        exec("npm i --only=prod", {cwd:outDir}, () => {});
       });
-    });
-  });
-});
+  }
+  next();
+}
 
-// таск-костыль для смены директории на релизную
-gulp.task("prod-outDir", () => { outDir = dirRelease; });
+gulp.task("build", gulp.series(
+  rm,
+  copy,
+  ts,
+  sass,
+  jsc,
+  jsd,
+  htmlm,
+  prodmods
+));
 
-// 2-ой таск-костыль с установкой продакшен окружения
-gulp.task("set-prod", ["prod-outDir"], envs.production.task);
-
-// таск для билда релизной версии приложения в dev-среде
-gulp.task("release", ["set-prod", "build"]);
+gulp.task("run", gulp.series("build", devSrv));
