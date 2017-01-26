@@ -1,23 +1,22 @@
-let express = require("express"),
-  ect = require("ect"); // шаблонизатор
+let express = require("express");
+let ect = require("ect"); // шаблонизатор
+let bodyParser = require('body-parser');
 
 let app = express();
 
-// статические файлы
-app.use(express.static('frontend'));
+app.use(express.static('frontend'));  // статические файлы
+app.use(bodyParser.json()); // автопарсер json-а в теле запросов
 
-app.set("views", "./backend/urls");
-app.set("view engine", "ect");
+app.set("views", "./backend/urls"); // пути с html для express
+app.set("view engine", "ect");  // включение ect
 let ectRenderer = ect({
   root: __dirname + "/backend/urls",
   ext : ".html"});
-app.engine("html", ectRenderer.render); // подключение шаблонизатора ECT
+app.engine("html", ectRenderer.render); // назначение ECT на HTML
 
 if(app.get("env") === "development") {
-  // отключение кэширования для вьюх
-  ectRenderer.options.cache = false;
-  // подключение livereload
-  app.use(require("connect-livereload")());
+  ectRenderer.options.cache = false;  // отключение кэширования для вьюх
+  app.use(require("connect-livereload")()); // подключение livereload
 }
 
 app.use(require("./backend/routing").appRouter);  // маршрутизация

@@ -3,5 +3,5 @@ exports.render = (req, res) => {
       title: "Психология и бизнес",
       path: req.path
     };
-    res.render("index.html", model);
+  res.render("index.html", model);
 }

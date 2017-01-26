@@ -1,6 +1,7 @@
 {
   "emailRobot": {
     "user": "test@psycho.ru",
-    "pass": "123456qW"
+    "pass": "123456qW",
+    "from": "'Психология и бизнес' <test@psycho.ru>"
   }
 }
