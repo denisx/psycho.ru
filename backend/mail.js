@@ -1,5 +1,6 @@
 var nodemailer = require("nodemailer");
 var bll = require("./bll");
+var config = require(`${process.cwd()}/config.json`);
 
 var proto = module.exports = {
   
@@ -10,7 +11,6 @@ var proto = module.exports = {
    * @param {any} message текст
    */
   sendSendFromRobot: function(to, subject, message) {
-    var config = bll.config();
     var smtpConfig = {
       service: "Yandex",
       auth: {

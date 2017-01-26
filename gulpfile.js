@@ -76,7 +76,9 @@ function devSrv() { // сервер для отладки приложения
     gulp.src(`./backend/**/*.js`, {base:"./"})
       .pipe(gulp.dest(outDir))
       .on("finish", () => {
-        srv.start.bind(srv);
+        // srv.start.bind(srv);
+        srv.stop();
+        srv.start();
         console.log("server restarted");
       });
   });

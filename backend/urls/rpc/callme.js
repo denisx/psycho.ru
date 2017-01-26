@@ -1,3 +1,5 @@
+var config = require(`${process.cwd()}/config.json`);
+
 exports.render = (req, res, next) => {
   if(req.method != "POST") {
     return res.end();
@@ -13,6 +15,6 @@ exports.render = (req, res, next) => {
 <br/>Телефон: ${req.body.phone}
 <br/>Email: ${req.body.email}
 <br/><a href="${req.body.url}">Страница заявки</a>.`;
-  mail.sendSendFromRobot(req.body.email, subject, message);
+  mail.sendSendFromRobot(config.managerEmail, subject, message);
   res.end();
 }
