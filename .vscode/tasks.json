@@ -16,9 +16,9 @@
       ]
     },
     {
-      "taskName": "release",
+      "taskName": "run",
       "args": [
-        "release"
+        "run"
       ]
     }
   ]
