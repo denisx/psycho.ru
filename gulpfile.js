@@ -26,6 +26,14 @@ function sass() { // весь сасс собирается в один банд
       .pipe(gulp.dest(`${outDir}/frontend/css`));
 }
 
+function sassold() { // сасс со стилями предыдущей версии сайта
+  return gulp.src("./src/frontend/css/old/*.scss")
+      .pipe(lintSass())
+      .pipe(concatCss("bundle.css"))
+      .pipe(cleanCss())
+      .pipe(gulp.dest(`${outDir}/frontend/css/old`));
+}
+
 function ts() { // ts компилируется и копируется с сохранением вложенности пути
   return gulp.src("./src/**/*.ts")
       .pipe(gulpts.createProject("tsconfig.json")())
@@ -88,6 +96,24 @@ function devSrv() { // сервер для отладки приложения
       .pipe(gulp.dest(outDir))
       .pipe(srv.notify());
   });
+  var w3 = gulp.watch([`./src/frontend/css/*.scss`]);
+  w3.on("all", () => {
+    gulp.src(`./src/frontend/css/*.scss`)
+      .pipe(lintSass())
+      .pipe(concatCss("bundle.css"))
+      .pipe(cleanCss())
+      .pipe(gulp.dest(`${outDir}/frontend/css`))
+      .pipe(srv.notify());
+  });
+  var w4 = gulp.watch([`./src/frontend/css/old/*.scss`]);
+  w4.on("all", () => {
+    gulp.src(`./src/frontend/css/old/*.scss`)
+      .pipe(lintSass())
+      .pipe(concatCss("bundle.css"))
+      .pipe(cleanCss())
+      .pipe(gulp.dest(`${outDir}/frontend/css/old`))
+      .pipe(srv.notify());
+  });
 }
 
 function prodmods(next) { // копирование пакетного файла и инсталяция prod-пакетов
@@ -107,6 +133,7 @@ gulp.task("build", gulp.series(
   copy,     // копирование "статики"
   ts,       // компиляция ts
   sass,     // линтинг sass, создание бандла и минификация
+  sassold,  // стили предыдущей версии сайта. используются на вложенных страницах и в библиотеке
   jsc,      // создание бандла js для фронтенда и его минификация
   jsd,      // удаление ненужных js-файлов из папки фронтенда
   htmlm,    // минификация и копирование html
