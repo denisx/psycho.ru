@@ -19,6 +19,7 @@ if(app.get("env") === "development") {
   app.use(require("connect-livereload")()); // подключение livereload
 }
 
+app.use(require("./backend/seoRedirector").seoRedirector);  // 301 и прочее SEO
 app.use(require("./backend/routing").appRouter);  // маршрутизация
 
 // 500
