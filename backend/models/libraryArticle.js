@@ -4,7 +4,8 @@ module.exports = function(sequelize, Datatypes) {
     return sequelize.define('article', {
         id: {
             primaryKey: true,
-            type: Datatypes.INTEGER
+            type: Datatypes.INTEGER,
+            autoIncrement: true
         },
         category: {
             type: Datatypes.INTEGER,

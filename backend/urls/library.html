@@ -1,4 +1,10 @@
 <% extend '_old' %>
-<div>
-  Библиотека
-</div>
+<h1>Библиотека</h1>
+<h2>Последние поступления</h2>
+<% for a in @articles : %>
+  <div>
+    <a href="/library/<%- a.id %>"><%- a.title %></a>
+    <br />
+    <%- a.shortDesc %>
+  </div>
+<% end %>
