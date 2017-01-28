@@ -6,9 +6,12 @@ exports.render = (req, res, next) => {
     .then((a) => {
       var model = {
         title: a.title,
-        keywords: "",
-        description: "",
-        year: new Date().getFullYear()
+        keywords: a.keywords,
+        description: a.description,
+        year: new Date().getFullYear(),
+        intro: a.intro,
+        body: a.body,
+        author: a.author
       };
       res.render(`./library/article.html`, model);
     });
