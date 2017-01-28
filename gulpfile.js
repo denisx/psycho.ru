@@ -14,45 +14,57 @@ let exec = require('child_process').exec;
 // определение выходной директории в зависимости от среды исполнения
 let outDir = env.production() ? "./build/release" : "./build/debug";
 
-function rm() { // очистка папки назначения
+gulp.task("rm", function() {  // очистка папки назначения
   return gulp.src(`${outDir}/*`).pipe(clean());
-}
+});
 
-function sass() { // весь сасс собирается в один бандл и минифицируется
+gulp.task("sass", ["ts"], function() {  // весь сасс собирается в один бандл и минифицируется
   return gulp.src("./src/frontend/css/*.scss")
       .pipe(lintSass())
       .pipe(concatCss("bundle.css"))
       .pipe(cleanCss())
       .pipe(gulp.dest(`${outDir}/frontend/css`));
-}
+});
 
-function sassold() { // сасс со стилями предыдущей версии сайта
+gulp.task("sassold", ["sass"], function() { // сасс со стилями предыдущей версии сайта
   return gulp.src("./src/frontend/css/old/*.scss")
       .pipe(lintSass())
       .pipe(concatCss("bundle.css"))
       .pipe(cleanCss())
       .pipe(gulp.dest(`${outDir}/frontend/css/old`));
-}
+});
 
-function ts() { // ts компилируется и копируется с сохранением вложенности пути
+gulp.task("ts", ["copy"], function() {  // ts компилируется и копируется с сохранением вложенности пути
   return gulp.src("./src/**/*.ts")
       .pipe(gulpts.createProject("tsconfig.json")())
       .pipe(gulp.dest(outDir));
-}
+});
 
-function jsc() { // js фронтенда собирается в бандл и (для продакшена) минифицируется
+gulp.task("jsc", ["sassold"], function() {  // js фронтенда собирается в бандл и (для продакшена) минифицируется
   return gulp.src(`${outDir}/frontend/js/*.js`)
     .pipe(concatJs('bundle.js'))
     .pipe(env.production(uglifyJS()))
-    .pipe(gulp.dest(`${outDir}/frontend/js`));
-}
+    .pipe(gulp.dest(`${outDir}/frontend`)); // костыль! кладём бандл в кривую папку
+});
 
-function jsd() { // удаление всего js на фронтенда, кроме бандла
-  return gulp.src([`${outDir}/frontend/js/*.js`, `!${outDir}/frontend/js/bundle.js`])
+gulp.task("jsd", ["jsc"], function() {  // удаление всего js на фронтенда, кроме бандла
+  // костыль! таск разбит на 3 части
+  // часть 1. очистка папки с исходными скриптами
+  return gulp.src(`${outDir}/frontend/js/*.js`)
     .pipe(clean());
-}
+});
 
-function htmlm() { // минификация и копирование html
+gulp.task("jsd2", ["jsd"], function() { // костыль! копирование бандла в папку назначения
+  return gulp.src(`${outDir}/frontend/bundle.js`)
+    .pipe(gulp.dest(`${outDir}/frontend/js`));
+});
+
+gulp.task("jsd3", ["jsd2"], function() {  // костыль! удаление бандла из временной папки
+  return gulp.src(`${outDir}/frontend/bundle.js`)
+    .pipe(clean());
+});
+
+gulp.task("htmlm", ["jsd3"], function() { // минификация html
   return gulp.src(`${outDir}/backend/urls/**/*.html`)
     .pipe(env.production(htmlmin({
       collapseWhitespace: true
@@ -68,36 +80,31 @@ function htmlm() { // минификация и копирование html
       ,removeStyleLinkTypeAttributes: true
     })))
     .pipe(gulp.dest(`${outDir}/backend/urls`));
-}
+});
 
-function copy () { // копирование различной "статики"
+gulp.task("copy", ["rm"], function() {  // копирование "статики"
   return gulp.src(["./backend/**", "./frontend/**", "./main.js", "./config.json"], {base:"./"})
       .pipe(gulp.dest(outDir));
-  next();
-}
+});
 
-function devSrv() { // сервер для отладки приложения
+gulp.task("devSrv", ["build"], function() { // отладочный сервер
   var srv = gls("main.js", { cwd: outDir });
   srv.start();
-  var w1 = gulp.watch(`./backend/**/*.js`);
-  w1.on("all", () => {
+  var w1 = gulp.watch(`./backend/**/*.js`, function() {
     gulp.src(`./backend/**/*.js`, {base:"./"})
       .pipe(gulp.dest(outDir))
       .on("finish", () => {
-        // srv.start.bind(srv);
         srv.stop();
         srv.start();
         console.log("server restarted");
       });
   });
-  var w2 = gulp.watch([`./backend/urls/**/*.html`]);
-  w2.on("all", () => {
+  var w2 = gulp.watch([`./backend/urls/**/*.html`], function() {
     gulp.src(`./backend/urls/**/*.html`, {base:"./"})
       .pipe(gulp.dest(outDir))
       .pipe(srv.notify());
   });
-  var w3 = gulp.watch([`./src/frontend/css/*.scss`]);
-  w3.on("all", () => {
+  var w3 = gulp.watch([`./src/frontend/css/*.scss`], function(){
     gulp.src(`./src/frontend/css/*.scss`)
       .pipe(lintSass())
       .pipe(concatCss("bundle.css"))
@@ -105,8 +112,7 @@ function devSrv() { // сервер для отладки приложения
       .pipe(gulp.dest(`${outDir}/frontend/css`))
       .pipe(srv.notify());
   });
-  var w4 = gulp.watch([`./src/frontend/css/old/*.scss`]);
-  w4.on("all", () => {
+  var w4 = gulp.watch([`./src/frontend/css/old/*.scss`], function(){
     gulp.src(`./src/frontend/css/old/*.scss`)
       .pipe(lintSass())
       .pipe(concatCss("bundle.css"))
@@ -114,30 +120,29 @@ function devSrv() { // сервер для отладки приложения
       .pipe(gulp.dest(`${outDir}/frontend/css/old`))
       .pipe(srv.notify());
   });
-}
+});
 
-function prodmods(next) { // копирование пакетного файла и инсталяция prod-пакетов
+gulp.task("prodmods", ["htmlm"], function() {
   if(env.production()) {
-    gulp.src('./package.json')
+    return gulp.src('./package.json')
       .pipe(gulp.dest(outDir))
       .on("finish", () => {
         // инсталлируем только dependency пакеты в папку с билдом
         exec("npm i --only=prod", {cwd:outDir}, () => {});
       });
   }
-  next();
-}
+});
 
-gulp.task("build", gulp.series(
-  rm,       // очистка
-  copy,     // копирование "статики"
-  ts,       // компиляция ts
-  sass,     // линтинг sass, создание бандла и минификация
-  sassold,  // стили предыдущей версии сайта. используются на вложенных страницах и в библиотеке
-  jsc,      // создание бандла js для фронтенда и его минификация
-  jsd,      // удаление ненужных js-файлов из папки фронтенда
-  htmlm,    // минификация и копирование html
-  prodmods  // копирование пакетного файла и инсталяция пакетов
-));
+gulp.task("build", ["prodmods"]);
+  // "rm",       // очистка
+  // "copy",     // копирование "статики"
+  // "ts",       // компиляция ts
+  // "sass",     // линтинг sass, создание бандла и минификация
+  // "sassold",  // стили предыдущей версии сайта. используются на вложенных страницах и в библиотеке
+  // "jsc",      // создание бандла js для фронтенда и его минификация
+  // "jsd",      // удаление ненужных js-файлов из папки фронтенда
+  // "htmlm",    // минификация и копирование html
+  // "prodmods"  // копирование пакетного файла и инсталяция пакетов
+  // ]);
 
-gulp.task("run", gulp.series("build", devSrv));
+gulp.task("run", ["build", "devSrv"]);
