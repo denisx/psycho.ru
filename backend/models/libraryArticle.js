@@ -26,6 +26,7 @@ module.exports = function(sequelize, Datatypes) {
             type: Datatypes.TEXT,
             allowNull: false
         },
+        createdAt: Datatypes.DATE,
         keywords: Datatypes.STRING(255),
         description: Datatypes.STRING(350)
     }, {
