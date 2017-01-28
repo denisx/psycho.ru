@@ -13,6 +13,10 @@ exports.appRouter = (req, res, next) => {
   if(req.path === "/") {  // главная страница
     modulePath = `${rootPath}/index`;
   }
+  else if(/^\/library/.test(req.path)) // библиотека
+  {
+    modulePath = `${rootPath}/library`;
+  }
 
   let route;  // переменная с будущим модулем для обработки запроса
   try {

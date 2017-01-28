@@ -4,5 +4,12 @@
     "pass": "123456qW",
     "from": "'Психология и бизнес' <test@psycho.ru>"
   },
-  "managerEmail": "p.menshih@gmail.com"
+  "managerEmail": "p.menshih@gmail.com",
+  "db": {
+    "user": "pnbdev",
+    "pass": "12345q",
+    "host": "dev.psycho.ru",
+    "port": "5432",
+    "database": "psycho5"
+  }
 }
