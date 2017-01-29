@@ -68,8 +68,6 @@ gulp.task("htmlm", ["jsd3"], function() { // минификация html
   return gulp.src(`${outDir}/backend/urls/**/*.html`)
     .pipe(env.production(htmlmin({
       collapseWhitespace: true
-      ,collapseBooleanAttributes: true
-      ,collapseInlineTagWhitespace: true
       ,decodeEntities: true
       ,minifyCSS: true
       ,minifyJS: true
