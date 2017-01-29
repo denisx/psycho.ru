@@ -1,4 +1,4 @@
-exports.render = (req, res) => {
+exports.render = (req, res, next) => {
   var model = {
     title: "Исследование корпоративной культуры, ее влияния на вовлеченность и продуктивность компании",
     path: req.path,

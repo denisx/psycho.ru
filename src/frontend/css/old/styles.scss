@@ -1,0 +1,274 @@
+@font-face {
+  font-family: 'Bebas Neue Regular';
+  src: url('/fonts/old/bebas-neue-regular.eot?#iefix') format('embedded-opentype'),  url('/fonts/old/bebas-neue-regular.otf')  format('opentype'),
+	     url('/fonts/old/bebas-neue-regular.woff') format('woff'), url('/fonts/old/bebas-neue-regular.ttf')  format('truetype'), url('/fonts/old/bebas-neue-regular.svg#Bebas Neue Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Bold';
+  src: url('/fonts/old/bebas-neue-bold.eot?#iefix') format('embedded-opentype'),  url('/fonts/old/bebas-neue-bold.otf')  format('opentype'),
+	     url('/fonts/old/bebas-neue-bold.woff') format('woff'), url('/fonts/old/bebas-neue-bold.ttf')  format('truetype'), url('/fonts/old/bebas-neue-bold.svg#Bebas Neue Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+    padding-bottom: 20px;
+    font-size: 12pt;
+    font-family: 'Open Sans';
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+
+h1 {
+    font-family: 'Bebas Neue Bold'; 
+    font-size: 4em; 
+    color: #002C70; 
+    opacity: .1;
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+
+h2 {
+    font-family: 'Bebas Neue Bold'; 
+    font-size: 2em; 
+    color: #002C70; 
+    margin-top: .5em;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-family: 'Bebas Neue Regular'; 
+    font-size: 1.75em; 
+    color: #002C70; 
+    margin-top: .5em;
+    margin-bottom: 0;
+}
+
+/* 
+    Настройка области меню 
+*/
+.siteMenu {
+    background-color: #002C70;
+    font-family: 'Bebas Neue Regular';
+    font-size: 1.5em;
+    color: #FFFFFF;
+}
+
+.advert {
+    text-align: center;
+}
+
+.advert hr {
+    margin: 0px;
+    color: white;
+    background-color: white;
+    height: 1px;
+    border: none;
+    opacity: .7;
+}
+
+.advert a {
+    color: white;
+    opacity: .7;
+}
+
+.siteMenu a:hover {
+    opacity: .5;
+}
+
+.siteMenu #menuPhone {
+    opacity: .7;
+    float: right;
+    display: inline-block;
+}
+
+.siteMenu .navbar-nav li a {
+    line-height: 43px;
+    color: #FFFFFF;
+    opacity: .7;
+}
+
+.siteMenu .navbar-nav li a:hover {
+    opacity: .5;
+}
+
+.siteMenu button {
+    border-color: #FFFFFF !important;
+    opacity: .7;
+    margin-top: 20px;
+}
+
+.siteMenu .navbar-toggle:hover, .siteMenu .navbar-toggle:focus {
+    background-color: #002C70;   
+    opacity: 1 !important;
+}
+
+.clientsList div{
+    float: left;
+    line-height: 110px;
+    min-width: 200px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*
+    Область клиентских логотипов
+*/
+.mainText h1 {
+    font-size: 2em;
+    opacity: 1;
+    font-family: 'Bebas Neue Regular';
+}
+
+/*
+    Главное меню
+*/
+.mainText div > div:first-child
+{
+    font-size: 1.5em;
+    font-family: 'Bebas Neue Regular';
+}
+
+@media (max-width: 960px)
+{
+    .noMobile {
+        display: none !important;
+    }
+}
+
+.textAdvert {
+    background-color: #002c70;
+    font-family: 'Bebas Neue Regular';
+    font-size: 1.5em;
+    padding: .3em .3em .3em .3em;
+    text-align: center;
+    line-height: 1em;
+    margin-bottom: .3em;
+}
+
+.textAdvert a {
+    color: #FFFFFF;
+    opacity: .7;
+}
+
+button:focus {
+   outline-color: transparent !important;
+}
+
+/*
+    Статья
+*/
+.libraryArticle {
+    font-family: 'Open Sans';
+}
+
+.libraryArticle h1 {
+    font-family: inherit;
+    font-size: 2em;
+    opacity: 1;
+    color: #000000;
+    margin-bottom: .3em;
+}
+
+.libraryArticle h2 {
+    font-family: inherit;
+    font-size: 1.5em;
+    opacity: 1;
+    color: #000000;
+    margin-bottom: .3em;
+}
+
+.libraryArticle div#articleIntro {
+    font-size: 1.3em;
+    margin-bottom: .3em;
+}
+
+.libraryArticle div#articleBody {
+
+}
+
+.textBlockRight {
+    float: right;
+    padding: .5em 1em .5em 1em;
+    margin: .5em 0 .5em 1em;
+    max-width: 25%;
+    display: table;
+    background-color: #e2e2e2;
+}
+
+.textBlockLeft {
+    float: left;
+    padding: .5em 1em .5em 1em;
+    margin: .5em 1em .5em 0;
+    max-width: 25%;
+    display: table;
+    background-color: #e2e2e2;
+}
+
+.textBlockquote {
+    font-style: italic;
+    border-left: 3px solid #e2e2e2;
+    padding-left: 1em;
+    padding-right: 5em;
+    margin-bottom: 1em;
+    margin-left: 3em;
+    width: 90%;
+    display: inline-block;
+}
+
+.textBlockTextSmall {
+    font-size: .8em;
+} 
+
+.textBlock {
+    padding: 1em;
+    width: 100%;
+    display: table;
+    background-color: #e2e2e2;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.textImageBlock {
+    font-size: .8em;
+    padding: 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    display: table;
+    text-align: center;
+    border-bottom: 1px solid #e2e2e2;
+    border-top: 1px solid #e2e2e2;
+}
+
+.systemPage {
+    background-color: #002C70;
+    font-family: 'Bebas Neue Regular';
+    color: white;
+    font-size: 20pt;
+}
+
+.systemPage a {
+    color: #00B5E3;
+}

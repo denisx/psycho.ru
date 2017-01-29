@@ -1,4 +1,4 @@
-exports.render = (req, res) => {
+exports.render = (req, res, next) => {
   var model = {
     title: "Открытый тренинг в ИКМ НИУ ВШЭ",
     path: req.path,

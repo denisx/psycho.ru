@@ -200,6 +200,10 @@ body.main-page-body {
 
 a {
   color: #002d70;
+  // text-decoration: none;
+}
+
+.aWOtextdec a {
   text-decoration: none;
 }
 
@@ -372,6 +376,7 @@ input[type="submit"]:hover, .form-section .form-box .submit:hover {
 .link-black {
   white-space: nowrap;
   color: #000;
+  text-decoration: none;
 }
 
 /* #header

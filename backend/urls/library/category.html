@@ -1,0 +1,9 @@
+<% extend '_old' %>
+<h1><%- @title %></h1>
+<% for a in @articles : %>
+  <div>
+    <a href="/library/<%- a.id %>"><%- a.title %></a>
+    <br />
+    <%- a.shortDesc %>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-exports.render = (req, res) => {
+exports.render = (req, res, next) => {
   var model = {
     title: "Исследование вовлеченности, удовлетворенности и лояльности персонала",
     path: req.path,

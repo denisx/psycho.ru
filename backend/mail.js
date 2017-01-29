@@ -1,9 +1,11 @@
+/**
+ * Модуль для работы с электронной почтой и письмами
+ */
+"use strict";
 var nodemailer = require("nodemailer");
-var bll = require("./bll");
 var config = require(`${process.cwd()}/config.json`);
 
 var proto = module.exports = {
-  
   /**
    * Отправка письма с ящика robot
    * @param {any} to кому
