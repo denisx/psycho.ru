@@ -1,5 +1,14 @@
+/**
+ * Модуль возврата 301 и прочих сео-ответов.
+ * Нужен, потому что сайт работает с 1998 года, много раз переписывался,
+ * меняя структуру. 
+ * Чтобы не терять внешнюю ссылочную базу,
+ * здесь собираются самые популярные "старые точки входа".
+ */
 exports.seoRedirector = (req, res, next) => {
+  // запрос с именем домена
   var fullUrl = req.get('host') + req.originalUrl;
+  
   // переменная, содержащая запрос без get-параметров и начального /
   // сделана для удобства набора правил и краткости
   var p = req.path.replace(/^\//, '');
@@ -7,6 +16,7 @@ exports.seoRedirector = (req, res, next) => {
   // функция-алиас с 301 редиректом
   // сделана для удобства набора правил и краткости
   var r = function(url) {
+    // если запрос пустой, отправляем всё на главную
     if(url === '') return res.redirect(301, `${req.protocol}://${req.get('host')}`);
     return res.redirect(301, `${req.protocol}://${req.get('host')}/${url}`);
   }
@@ -84,24 +94,36 @@ exports.seoRedirector = (req, res, next) => {
     return r('library/assessment');
   if(/^biblio\/politica[\/\w_\d\?=\.]*$/.test(p))
     return r('library/ideology');
+  // ссылки на "Профессора"
   if(/^shop\/professor|programm\/(prof|vaal)|products\/(115|soft\/professor_kadry|116[/\d\w]*)$/.test(p))
     return r('products/assessment/professor');
+  // страницы продуктов, которых больше нет. ведут просто в "Продукты"
   if(/^shop|expert|events|trn[\/\w_\d\?=\.]*|seminars[\/\w_\d\?=\.]*|training(s)?|marketing|consulting|soft|products\/(124|123|114|178|120|148|121|145|117|161|169|129|127|137|146|trainings|all|events|consalting|valuation)$/.test(p))
     return r('#productPage');
+  // разное старое, ведущее теперь на главную
   if(/^go\.php|forum|voting|trainers|subscribe|prog|registration|rss|catlinks\.php|links|themes|discussions|index\.html|papers|blogs|konkurs|fulltext\/jar\/images\/9146a|clients|coaching|face|feedback|leadership$/.test(p))
     return r('');
   // if(/^$/.test(p))return r('');
+
   /**
    * Редиректы сайта 3 и 4 версии.
    */
+  // Корпоративная культура
   if(/^products\/corpcult\/study_of_corpcult$/.test(p)) 
     return r('products/corpcult');
+  // Вовлеченность
   if(/^products\/involvement\/involvement_research$/.test(p)) 
     return r('products/involvement');
+  // Первый тренинг полезных привычек
   if(/^products\/individual_development\/motivation$/.test(p)) 
     return r('products/keyhabits/motivation');
+  // Второй тренинг полезных привычек
+  if(/^products\/individual_development\/communications$/.test(p))
+    return r('products/keyhabits/profcom');
+  // Полезные привычки
   if(/^products\/individual_development$/.test(p))
     return r('products/keyhabits');
+  // Продукты
   if(/^products$/.test(p))
     return r('#productPage');
   // if(/^$/.test(p))return r('');

@@ -90,6 +90,7 @@ gulp.task("copy", ["rm"], function() {  // копирование "статик�
 gulp.task("devSrv", ["build"], function() { // отладочный сервер
   var srv = gls("main.js", { cwd: outDir });
   srv.start();
+  // яваскрипт бэкенда
   var w1 = gulp.watch(`./backend/**/*.js`, function() {
     gulp.src(`./backend/**/*.js`, {base:"./"})
       .pipe(gulp.dest(outDir))
@@ -99,11 +100,13 @@ gulp.task("devSrv", ["build"], function() { // отладочный сервер
         console.log("server restarted");
       });
   });
+  // вьюхи
   var w2 = gulp.watch([`./backend/urls/**/*.html`], function() {
     gulp.src(`./backend/urls/**/*.html`, {base:"./"})
       .pipe(gulp.dest(outDir))
       .pipe(srv.notify());
   });
+  // сасс сайта
   var w3 = gulp.watch([`./src/frontend/css/*.scss`], function(){
     gulp.src(`./src/frontend/css/*.scss`)
       .pipe(lintSass())
@@ -112,6 +115,7 @@ gulp.task("devSrv", ["build"], function() { // отладочный сервер
       .pipe(gulp.dest(`${outDir}/frontend/css`))
       .pipe(srv.notify());
   });
+  // стили сайта 4-ой версии. нужны пока не переделали все внутренние страницы
   var w4 = gulp.watch([`./src/frontend/css/old/*.scss`], function(){
     gulp.src(`./src/frontend/css/old/*.scss`)
       .pipe(lintSass())
@@ -122,6 +126,7 @@ gulp.task("devSrv", ["build"], function() { // отладочный сервер
   });
 });
 
+// инсталяция продакшен модулей для релизной сборки
 gulp.task("prodmods", ["htmlm"], function() {
   if(env.production()) {
     return gulp.src('./package.json')
@@ -133,6 +138,8 @@ gulp.task("prodmods", ["htmlm"], function() {
   }
 });
 
+// так как галп 3.9 не может вменяемо исполнять последовательные задачи,
+// весь этот код (пока что?) не нужен
 gulp.task("build", ["prodmods"]);
   // "rm",       // очистка
   // "copy",     // копирование "статики"

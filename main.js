@@ -22,8 +22,7 @@ if(app.get("env") === "development") {
 app.use(require("./backend/seoRedirector").seoRedirector);  // 301 и прочее SEO
 app.use(require("./backend/routing").appRouter);  // маршрутизация
 
-// 500
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => {  // 500
   if(app.get("env") === "development") {
     res.status(500).render(err);
   }
