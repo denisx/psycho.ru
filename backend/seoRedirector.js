@@ -25,7 +25,7 @@ exports.seoRedirector = (req, res, next) => {
   if(/(.+)\/$/.test(p))
     return res.redirect(301, `${req.protocol}://${fullUrl.slice(0, -1)}`);
   // добавление www
-  if(!/^www\./.test(req.headers.host))
+  if(!/^www\./.test(req.headers.host) && req.headers.host === 'psycho.ru')
     return res.redirect(301, `${req.protocol}://www.${fullUrl}`);
 
   /**
