@@ -64,6 +64,9 @@
 Инструкцию по инсталляции можно найти [на сайте](https://nodejs.org) программы. [Актуальная версия](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) на 30.01.17.
 
 ### <a href='pm2'></a> Менеджер процессов
+Используется pm2.
+
+`sudo npm i -g pm2`
 
 ### <a name="nginx"></a> Web–сервер
 Используется nginx.
