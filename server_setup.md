@@ -11,9 +11,9 @@
 - [FTP](#ftp)
 - [База данных](#db)
 - [Node.js и npm](#node)
+- [Сайт](#site)
 - [Менеджер процессов](#pm2)
 - [Web-сервер](#nginx)
-- [Сайт](#site)
 - [SSL сертификат](#ssl)
 
 ### <a href='user'></a> Пользователь
@@ -86,17 +86,6 @@ sudo apt-get install curl
 ```
 Инструкцию по инсталляции можно найти [на сайте](https://nodejs.org) программы. [Актуальная версия](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) на 30.01.17.
 
-### <a href='pm2'></a> Менеджер процессов
-Используется pm2.
-```
-sudo npm i -g pm2
-```
-
-### <a name="nginx"></a> Web–сервер
-Используется nginx.
-
-Инструкцию по установке можно найти [на сайте](https://nginx.org/ru) программы. [Актуальная версия](https://nginx.org/ru/linux_packages.html) на 30.01.17.
-
 ### <a name="site"></a> Сайт
 Прежде всего необходимо установить переменную окружения `NODE_ENV` в для Node.js.  
 Для этого в файл `/etc/profile.d/nodejs.sh` необходимо добавить строки:  
@@ -111,6 +100,76 @@ export NODE_ENV
 tar xvf psycho.ru.tar
 ```
 После в папке `psycho.ru` необходимо изменить конфигурационный файл `config.json`, вписав в него нужные параметры.
+
+### <a href='pm2'></a> Менеджер процессов
+Используется pm2.
+```
+sudo npm i -g pm2
+```
+После установки необходимо [настроить автозапуск](http://pm2.keymetrics.io/docs/usage/startup).
+
+После настройки автозапуска необходимо запустить сайт и сохранить состояние pm2 для автоматического восстановления после перезагрузки:
+```
+# выполняется из папки с сайтом
+pm2 start main.js --name=psycho.ru
+pm2 save
+```
+
+### <a name="nginx"></a> Web–сервер
+Используется nginx.
+
+Инструкцию по установке можно найти [на сайте](https://nginx.org/ru) программы. [Актуальная версия](https://nginx.org/ru/linux_packages.html) на 30.01.17.
+
+После установки, необходимо настроить прокси для pm2 и параметры сервера в `/etc/nginx/conf.d/default.conf`.  
+Пример:
+```
+server {
+    listen 80;
+    server_name psycho.ru;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_max_temp_file_size 0;
+        proxy_pass http://localhost:8205;
+        proxy_redirect off;
+        proxy_read_timeout 240s;
+    }
+}
+
+```
+После необходимо проверить корректность конфигурации nginx и перезапустить сервер.
+
+Опционально можно настроить в nginx сжатие. Пример конфигурации `gzip` для файла `/etc/nginx/nginx.conf`:
+```
+gzip  on;
+    gzip_comp_level 6;
+    gzip_vary on;
+    gzip_min_length  1000;
+    gzip_proxied any;
+    gzip_types
+        application/atom+xml
+        application/javascript
+        application/json
+        application/rss+xml
+        application/vnd.ms-fontobject
+        application/x-font-ttf
+        application/x-web-app-manifest+json
+        application/xhtml+xml
+        application/xml
+        font/opentype
+        image/svg+xml
+        image/x-icon
+        text/css
+        text/plain
+        text/x-component;
+    gzip_buffers 16 8k;
+```
+Если всё сделано правильно сайт должен стать доступным.
 
 ### <a name="ssl"></a> SSL–сертификат
 Используется [Let's Encrypt](https://letsencrypt.org/).
