@@ -12,7 +12,7 @@ let gls = require('gulp-live-server');
 let exec = require('child_process').exec;
 
 // определение выходной директории в зависимости от среды исполнения
-let outDir = env.production() ? "./build/release" : "./build/debug";
+let outDir = env.production() ? "./build/psycho.ru" : "./build/debug";
 
 gulp.task("rm", function() {  // очистка папки назначения
   return gulp.src(`${outDir}/*`).pipe(clean());
