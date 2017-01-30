@@ -59,6 +59,8 @@
 *Для создания дампов можно использовать команду `pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5`*
 
 ### <a href='node'></a> Node.js и npm
+Для установки может потребоваться `curl`: `sudo apt-get install curl`.
+
 Инструкцию по инсталляции можно найти [на сайте](https://nodejs.org) программы. [Актуальная версия](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) на 30.01.17.
 
 ### <a href='pm2'></a> Менеджер процессов
