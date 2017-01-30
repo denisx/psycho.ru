@@ -10,7 +10,7 @@
 - Пользователь
 - FTP
 - [База данных](#db)
-- Web-сервер
+- [Web-сервер](#nginx)
 - Node.js и npm
 - Менеджер процессов
 - Развертывание сайта
@@ -58,5 +58,9 @@
 
 *Для создания дампов можно использовать команду `pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5`*
 
+### <a name="nginx"></a> Web–сервер
+Используется nginx.
+
+Инструкцию по установке можно найти [на сайте](https://nginx.org/ru) программы. [Актуальная версия](https://nginx.org/ru/linux_packages.html) на 30.01.17.
 
 certbot renew --pre-hook "service nginx stop" --post-hook "service nginx start"
