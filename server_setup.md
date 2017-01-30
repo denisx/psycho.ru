@@ -19,54 +19,71 @@
 ### <a href='user'></a> Пользователь
 Логином пользователя определим `psycho`. 
 Для создания пользователя необходимо выполнить команды:
-
-- `adduser psycho` — добавление пользователя в систему (появится несколько вопросов о данных пользователя и запрос на установку пароля);
-- `apt-get install sudo` — установка sudo;
-- `usermod -aG sudo psycho` — добавление нового пользователя в группу `sudo`;
-
-Замечания:
-
-1. Для применения настроек необходимо выйти из сессии пользователя `psycho` и снова зайти.
-2. После создания пользователя настоятельно не рекомендуется использовать `root`.
+```
+adduser psycho
+# установка sudo
+apt-get install sudo
+# добавление нового пользователя в группу sudo
+usermod -aG sudo psycho
+```
 
 ### <a href='ftp'></a> FTP
 Используется vsftpd.
 
-Установка сервера: `sudo apt-get install vsftpd`. После инсталляции сервер автоматически запустится и будет готов к работе.
-
+Установка сервера: 
+```
+sudo apt-get install vsftpd
+```
 *После назначения домена и получения SSL-сертификата настоятельно рекомендуется активировать протокол SSL для FTP.*
 
 ### <a name='db'></a> База данных
 Используется PostgreSQL.
 
-Установка: `sudo apt-get install postgresql-9.4`.
+Установка: 
+```
+sudo apt-get install postgresql-9.4
+```
 
 После установки необходимо задать пользователю `postgres` пароль:
-
-- `sudo -u postgres psql` — запуск psql;
-- `alter user postgres password 'password';` — установка пароля;
-- `\q` — выход.
+```
+# запуск psql
+sudo -u postgres psql
+# установка пароля
+alter user postgres password 'password'
+# выход из psql
+\q
+```
 
 *Конфигурация сервера подразумевает, что на нём будет работать только psycho, подключаться к БД по сети будет нельзя и поэтому для работы можно использовать пользователя `postgres` с аутентификацией через `localhost`.*
 
 Теперь необходимо создать БД сайта и восстановить данные из бэкапа (который должен быть предварительно загружен), для этого:
-
-- `psql -U postgres -h localhost` — запуск psql;
-- `CREATE DATABASE psycho5;` — создаём БД `psycho5`;
-- `\q`;
-- `pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампом БД]` — восстановление БД из дампа.
-
-*Для создания дампов можно использовать команду `pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5`*
+```
+# запуск psql
+psql -U postgres -h localhost
+# создаём БД `psycho5` в psql
+CREATE DATABASE psycho5
+# выход из psql
+\q
+# восстановление БД из дампа
+pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампом БД]
+```
+*Для создания дампов можно использовать команду:*
+```
+pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5
+```
 
 ### <a href='node'></a> Node.js и npm
-Для установки может потребоваться `curl`: `sudo apt-get install curl`.
-
+Для установки может потребоваться `curl`:
+```
+sudo apt-get install curl
+```
 Инструкцию по инсталляции можно найти [на сайте](https://nodejs.org) программы. [Актуальная версия](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) на 30.01.17.
 
 ### <a href='pm2'></a> Менеджер процессов
 Используется pm2.
-
-`sudo npm i -g pm2`
+```
+sudo npm i -g pm2
+```
 
 ### <a name="nginx"></a> Web–сервер
 Используется nginx.
@@ -80,7 +97,7 @@
 NODE_ENV=production  
 export NODE_ENV
 ```
-После окончания редактирования нужно выйти из сессии и снова войти.
+Для применения настроек нужно выйти из сессии и снова войти.
 
 Далее необходимо установить таск-раннер `Gulp`:
 ```
