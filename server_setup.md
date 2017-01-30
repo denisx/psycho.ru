@@ -79,7 +79,7 @@ pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампо
 pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5
 ```
 
-### <a href='node'></a> Node.js и npm
+### <a name='node'></a> Node.js и npm
 Для установки может потребоваться `curl`:
 ```
 sudo apt-get install curl
@@ -101,7 +101,7 @@ tar xvf psycho.ru.tar
 ```
 После в папке `psycho.ru` необходимо изменить конфигурационный файл `config.json`, вписав в него нужные параметры.
 
-### <a href='pm2'></a> Менеджер процессов
+### <a name='pm2'></a> Менеджер процессов
 Используется pm2.
 ```
 sudo npm i -g pm2
