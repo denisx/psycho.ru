@@ -54,7 +54,7 @@
 - выходим из `psql`: `\q`;
 - восстанавливаем БД из дампа: `pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампом БД]`.
 
-Для создания дампов можно использовать команду `pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5`
+*Для создания дампов можно использовать команду `pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5`*
 
 
 certbot renew --pre-hook "service nginx stop" --post-hook "service nginx start"
