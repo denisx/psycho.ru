@@ -41,18 +41,20 @@
 
 Установка: `sudo apt-get install postgresql-9.4`.
 
-После установки необходимо задать пользователю `postgres` пароль. Для этого запускаем `psql`:  `sudo -u postgres psql`.  
-Далее, в psql: `alter user postgres password 'password';`.   
-Для выхода из `psql` используется команда `\q`.
+После установки необходимо задать пользователю `postgres` пароль:
+
+- `sudo -u postgres psql` — запуск psql;
+- `alter user postgres password 'password';` — установка пароля;
+- `\q` — выход.
 
 *Конфигурация сервера подразумевает, что на нём будет работать только psycho, подключаться к БД по сети будет нельзя и поэтому для работы можно использовать пользователя `postgres` с аутентификацией через `localhost`.*
 
 Теперь необходимо создать БД сайта и восстановить данные из бэкапа (который должен быть предварительно загружен), для этого:
 
-- запускаем `psql` (`psql -U postgres -h localhost`);
-- создаём БД `psycho5`: `CREATE DATABASE psycho5;`;
-- выходим из `psql`: `\q`;
-- восстанавливаем БД из дампа: `pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампом БД]`.
+- `psql -U postgres -h localhost` — запуск psql;
+- `CREATE DATABASE psycho5;` — создаём БД `psycho5`;
+- `\q`;
+- `pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампом БД]` — восстановление БД из дампа.
 
 *Для создания дампов можно использовать команду `pg_dump --file=[файл с дампом] -F c -U postgres -h localhost -Ccv psycho5`*
 
