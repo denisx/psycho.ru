@@ -76,8 +76,8 @@
 ### Сайт
 Прежде всего необходимо установить переменную окружения `NODE_ENV` в для Node.js.  
 Для этого в файл `/etc/profile.d/nodejs.sh` необходимо добавить строки:  
-`NODE_ENV=production  
-export NODE_ENV`  
+   NODE_ENV=production  
+   export NODE_ENV
 После окончания редактирования нужно выйти из сессии и снова войти.
 
 `apt-get install git`
