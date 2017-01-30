@@ -21,8 +21,10 @@
 Для создания пользователя необходимо выполнить команды:
 ```
 adduser psycho
+
 # установка sudo
 apt-get install sudo
+
 # добавление нового пользователя в группу sudo
 usermod -aG sudo psycho
 ```
@@ -48,8 +50,10 @@ sudo apt-get install postgresql-9.4
 ```
 # запуск psql
 sudo -u postgres psql
+
 # установка пароля
 alter user postgres password 'password'
+
 # выход из psql
 \q
 ```
@@ -60,10 +64,13 @@ alter user postgres password 'password'
 ```
 # запуск psql
 psql -U postgres -h localhost
+
 # создаём БД `psycho5` в psql
 CREATE DATABASE psycho5
+
 # выход из psql
 \q
+
 # восстановление БД из дампа
 pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампом БД]
 ```
