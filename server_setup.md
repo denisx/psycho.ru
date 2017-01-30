@@ -73,6 +73,14 @@
 
 Инструкцию по установке можно найти [на сайте](https://nginx.org/ru) программы. [Актуальная версия](https://nginx.org/ru/linux_packages.html) на 30.01.17.
 
+### Сайт
+Прежде всего необходимо установить переменную окружения `NODE_ENV` в для Node.js.  
+Для этого в файл `/etc/profile.d/nodejs.sh` необходимо добавить строки:  
+`NODE_ENV=production  
+export NODE_ENV`  
+После окончания редактирования нужно выйти из сессии и снова войти.
 
+`apt-get install git`
+`npm i pmenshih/psycho.ru`
 
 certbot renew --pre-hook "service nginx stop" --post-hook "service nginx start"
