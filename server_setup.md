@@ -51,6 +51,8 @@
 
 - запускаем `psql` (`psql -U postgres -h localhost`);
 - создаём БД `psycho5`: `CREATE DATABASE psycho5;`;
+- выходим из `psql`: `\q`;
+- восстанавливаем БД из дампа: `pg_restore -F c -h localhost -d psycho5 -U postgres -cvO [файл с дампом БД]`.
 
 pg_restore -Ccv -F c -h localhost -U postgres psycho5.sqlc
 
