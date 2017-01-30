@@ -113,4 +113,9 @@ tar xvf psycho.ru.tar
 После в папке `psycho.ru` необходимо изменить конфигурационный файл `config.json`, вписав в него нужные параметры.
 
 ### <a name="ssl"></a> SSL–сертификат
+Используется [Let's Encrypt](https://letsencrypt.org/).
+
+Подробные инструкции по получению и установке сертификата находятся на сайте.
+
+*Важно! Сертификататы Let's Encrypt выдаются на 3 месяца. Администратор сервера должен сам решить вопрос их автоматического обновления.*
 certbot renew --pre-hook "service nginx stop" --post-hook "service nginx start"
