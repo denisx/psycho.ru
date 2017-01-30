@@ -82,6 +82,11 @@ export NODE_ENV
 ```
 После окончания редактирования нужно выйти из сессии и снова войти.
 
+Далее необходимо установить таск-раннер `Gulp`:
+```
+sudo npm i -g gulp
+```
+
 `apt-get install git`
 `npm i pmenshih/psycho.ru`
 
