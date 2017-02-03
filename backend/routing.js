@@ -15,10 +15,11 @@ exports.appRouter = (req, res, next) => {
   }
   else if(/^\/library/.test(req.path)) // библиотека
   {
+    // все запросы, начинающеися с /library отправляем в модуль библиотеки
     modulePath = `${rootPath}/library`;
   }
 
-  let route;  // переменная с будущим модулем для обработки запроса
+  let route;  // переменная с модулем для обработки запроса
   try {
       route = require(modulePath);  // попытка загрузить модуль
   }

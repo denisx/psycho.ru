@@ -12,7 +12,7 @@ let gls = require('gulp-live-server');
 let exec = require('child_process').exec;
 
 // определение выходной директории в зависимости от среды исполнения
-let outDir = env.production() ? "./build/release" : "./build/debug";
+let outDir = env.production() ? "./build/psycho.ru" : "./build/debug";
 
 gulp.task("rm", function() {  // очистка папки назначения
   return gulp.src(`${outDir}/*`).pipe(clean());
@@ -47,7 +47,7 @@ gulp.task("jsc", ["sassold"], function() {  // js фронтенда собир�
     .pipe(gulp.dest(`${outDir}/frontend`)); // костыль! кладём бандл в кривую папку
 });
 
-gulp.task("jsd", ["jsc"], function() {  // удаление всего js на фронтенда, кроме бандла
+gulp.task("jsd", ["jsc"], function() {  // удаление всего js на фронтенде, кроме бандла
   // костыль! таск разбит на 3 части
   // часть 1. очистка папки с исходными скриптами
   return gulp.src(`${outDir}/frontend/js/*.js`)
@@ -68,8 +68,6 @@ gulp.task("htmlm", ["jsd3"], function() { // минификация html
   return gulp.src(`${outDir}/backend/urls/**/*.html`)
     .pipe(env.production(htmlmin({
       collapseWhitespace: true
-      ,collapseBooleanAttributes: true
-      ,collapseInlineTagWhitespace: true
       ,decodeEntities: true
       ,minifyCSS: true
       ,minifyJS: true
@@ -90,6 +88,7 @@ gulp.task("copy", ["rm"], function() {  // копирование "статик�
 gulp.task("devSrv", ["build"], function() { // отладочный сервер
   var srv = gls("main.js", { cwd: outDir });
   srv.start();
+  // яваскрипт бэкенда
   var w1 = gulp.watch(`./backend/**/*.js`, function() {
     gulp.src(`./backend/**/*.js`, {base:"./"})
       .pipe(gulp.dest(outDir))
@@ -99,11 +98,13 @@ gulp.task("devSrv", ["build"], function() { // отладочный сервер
         console.log("server restarted");
       });
   });
+  // вьюхи
   var w2 = gulp.watch([`./backend/urls/**/*.html`], function() {
     gulp.src(`./backend/urls/**/*.html`, {base:"./"})
       .pipe(gulp.dest(outDir))
       .pipe(srv.notify());
   });
+  // сасс сайта
   var w3 = gulp.watch([`./src/frontend/css/*.scss`], function(){
     gulp.src(`./src/frontend/css/*.scss`)
       .pipe(lintSass())
@@ -112,6 +113,7 @@ gulp.task("devSrv", ["build"], function() { // отладочный сервер
       .pipe(gulp.dest(`${outDir}/frontend/css`))
       .pipe(srv.notify());
   });
+  // стили сайта 4-ой версии. нужны пока не переделали все внутренние страницы
   var w4 = gulp.watch([`./src/frontend/css/old/*.scss`], function(){
     gulp.src(`./src/frontend/css/old/*.scss`)
       .pipe(lintSass())
@@ -122,6 +124,7 @@ gulp.task("devSrv", ["build"], function() { // отладочный сервер
   });
 });
 
+// инсталяция продакшен модулей для релизной сборки
 gulp.task("prodmods", ["htmlm"], function() {
   if(env.production()) {
     return gulp.src('./package.json')
@@ -133,6 +136,8 @@ gulp.task("prodmods", ["htmlm"], function() {
   }
 });
 
+// так как галп 3.9 не может вменяемо исполнять последовательные задачи,
+// весь этот код (пока что?) не нужен
 gulp.task("build", ["prodmods"]);
   // "rm",       // очистка
   // "copy",     // копирование "статики"
