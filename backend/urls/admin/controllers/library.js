@@ -1,3 +1,7 @@
+/**
+ * Рендер страницы со списком статей библиотеки
+ */
+"use strict";
 let db = require(`../../../models/db`);
 let sequelize = require('sequelize');
 let boostrapPaginator = require('../libs/boostrapPaginator');
@@ -8,11 +12,11 @@ exports.index = function index(req, res, next) {
   if(req.params.page) page = req.params.page;
   let offset = page * limit;
 
-  db.articles.count()
+  db.articles.count() // счетчик статей для педжинга
   .then(count => {findAll(count);})
   .catch(e => { next(e); });
   
-  function findAll(count) {
+  function findAll(count) { // выборка нужного количества статей
     db.articles.findAll({ offset: offset, limit: limit,  order: 'id ASC' })
     .then((a) => {
       render(count, a);
@@ -20,13 +24,13 @@ exports.index = function index(req, res, next) {
     .catch(e => { next(e); });
   }
 
-  function render(count, a) {
+  function render(count, a) { // рендер страницы
     res.render('admin/views/library.html', {
-      data: a,
-      count: count,
-      error: req.flash('error'),
+      data: a, // статьи
+      count: count, // общее кол-во статей
+      error: req.flash('error'), // TODO - разобраться что это такое
       mata: { title: 'Админ панель - библиотека' },
-      page: page,
+      page: page, // номер текущей страницы в пейджинге
       paginate: 
         boostrapPaginator({
           prelink:'/admin/library',

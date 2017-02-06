@@ -5,7 +5,7 @@ let pagination = require('pagination');
 /**
  * function for show data for edit in library by id
  */
-module.exports.edit = function(req, res) {
+exports.edit = function(req, res) {
 	try {
 		db.articles.findById(req.params.id)
 
@@ -24,7 +24,7 @@ module.exports.edit = function(req, res) {
 /**
  * function to save the edited data in library by id
  */
-module.exports.editPost = function(req, res) {
+exports.editPost = function(req, res) {
 	try {
 		db.articles.update(
 			{

@@ -2,8 +2,9 @@ let passport       = require('passport');
 let LocalStrategy  = require('passport-local').Strategy;
 let db = require(`../../../models/db`);
 
-module.exports = function(req, res, next) {
-	passport.use('local', new LocalStrategy(
+// настройки аутентификации
+module.exports = function authentication(req, res, next) {
+	passport.use('local', new LocalStrategy( // локальная стратегия
 		function (username, password, done) {
 			if (username == "admin" && password == "admin") {
 				return done(null, {
@@ -17,7 +18,7 @@ module.exports = function(req, res, next) {
 		}
 	));
 
-// Serialize sessions
+	// Serialize sessions
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
 	});
