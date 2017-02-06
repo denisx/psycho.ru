@@ -122,16 +122,6 @@ gulp.task("devSrv", ["build"], function() { // отладочный сервер
       .pipe(gulp.dest(`${outDir}/frontend/css/old`))
       .pipe(srv.notify());
   });
-
-	// style admin
-	gulp.watch([`./src/frontend/admin/css/*.css`], function(){
-		gulp.src(`./src/frontend/admin/css/*.css`)
-			.pipe(lintSass())
-			.pipe(concatCss("bundle-admin.css"))
-			.pipe(cleanCss())
-			.pipe(gulp.dest(`${outDir}/frontend/admins/css`))
-			.pipe(srv.notify());
-	});
 });
 
 // инсталяция продакшен модулей для релизной сборки
@@ -146,24 +136,9 @@ gulp.task("prodmods", ["htmlm"], function() {
   }
 });
 
-gulp.task("cssadm", ["prodmods"], function() { // css admin
-	return gulp.src("./src/frontend/admin/css/*.css")
-		.pipe(lintSass())
-		.pipe(concatCss("bundle-admin.css"))
-		.pipe(cleanCss())
-		.pipe(gulp.dest(`${outDir}/frontend/admins/css`));
-});
-
-gulp.task("jsadmin", ["cssadm"], function() {  // admin js
-	return gulp
-		.src("./src/frontend/admin/js/*.js")
-		.pipe(concatJs('bundle-admin.js'))
-		.pipe(gulp.dest(`${outDir}/frontend/admins/js/`));
-});
-
 // так как галп 3.9 не может вменяемо исполнять последовательные задачи,
 // весь этот код (пока что?) не нужен
-gulp.task("build", ["jsadmin"]);
+gulp.task("build", ["prodmods"]);
   // "rm",       // очистка
   // "copy",     // копирование "статики"
   // "ts",       // компиляция ts

@@ -7,7 +7,7 @@ let pagination = require('pagination');
  */
 module.exports.edit = function(req, res) {
 	try {
-		db.articles.findById(req.param('id'))
+		db.articles.findById(req.params.id)
 
 			.then((a) => {
 				res.render('admin/views/library_edit.html', {
