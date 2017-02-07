@@ -11,5 +11,9 @@
     "host": "dev.psycho.ru",
     "port": "5432",
     "database": "psycho5"
+  },
+  "admin": {
+    "username": "admin",
+    "password": "admin"
   }
 }
