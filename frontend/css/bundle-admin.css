@@ -1,0 +1,7 @@
+.form-login {
+	margin-top: calc(50% - 300px);
+}
+.pagination-block {
+	margin: auto;
+	display: table;
+}
