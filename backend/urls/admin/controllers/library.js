@@ -13,14 +13,16 @@ exports.index = function index(req, res, next) {
   let offset = page * limit;
 
   db.articles.count() // счетчик статей для педжинга
-  .then(count => {findAll(count);})
-  .catch(e => { next(e); });
-  
-  function findAll(count) { // выборка нужного количества статей
-    db.articles.findAll({ offset: offset, limit: limit,  order: 'id ASC' })
+  .then(count => {return findAll(count, limit);})
+  .catch(e => { return next(e); });
+
+  function findAll(count, limit) { // выборка нужного количества статей
+    return db.articles.findAll({ offset: offset, limit: limit,  order: 'id ASC' })
+
     .then((a) => {
       render(count, a);
     })
+
     .catch(e => { next(e); });
   }
 
@@ -28,10 +30,9 @@ exports.index = function index(req, res, next) {
     res.render('admin/views/library.html', {
       data: a, // статьи
       count: count, // общее кол-во статей
-      error: req.flash('error'), // TODO - разобраться что это такое
       mata: { title: 'Админ панель - библиотека' },
       page: page, // номер текущей страницы в пейджинге
-      paginate: 
+      paginate:
         boostrapPaginator({
           prelink:'/admin/library',
           current: page,
