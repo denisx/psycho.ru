@@ -109,8 +109,8 @@ gulp.task("srv", function() { // отладочный сервер
       .pipe(srv.notify());
   });
   // сасс сайта
-  var w3 = gulp.watch([`./src/frontend/css/*.scss`], function(){
-    gulp.src(`./src/frontend/css/*.scss`)
+  var w3 = gulp.watch([`./src/frontend/css/**/*.scss`], function(){
+    gulp.src(`./src/frontend/css/styles.scss`)
       .pipe(lintSass())
       .pipe(concatCss("bundle.css"))
       .pipe(cleanCss())

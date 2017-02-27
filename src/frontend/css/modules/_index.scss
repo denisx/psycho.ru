@@ -564,7 +564,7 @@
   }
 }
 .recall-box-holder {
-  float: right;
+  float: left;
   width: 630px;
   .date-big {
     margin:0 0 10px 20px;
@@ -667,7 +667,7 @@
 .wrapper-event {
   .event-top-box {
     height: 640px;
-    background: url(../media/images/bg-event-top-box.jpg) 50% 0;
+    background: url(/media/images/product4/ev_com/images/bg-event-top-box2.jpg) 50% 0;
     @include background-size(cover);
     position: relative;
     &:after {
@@ -1080,7 +1080,7 @@
 }
 
 .section2-light {
-  background: url(../media/images/main_light/main-photo.jpg) 50% 50%;
+  background: url(/media/images/main_light/eventCommunications.jpg) 50% 50%;
   @include background-size(cover);
   >div {
     position: relative;
