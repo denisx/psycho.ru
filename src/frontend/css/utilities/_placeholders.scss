@@ -1,0 +1,60 @@
+.after-style {
+  display: block;
+  content: '';
+  clear: both;
+}
+.vertical-align {
+  display: inline-block;
+  vertical-align: middle;
+  height:100%;
+  content: '';
+}
+.small-text {
+  font-size:$fontSize*0.8;
+  font-weight: 300;
+}
+.big-blue-text {
+  font-size:$fontSize*1.2;
+  color: $darkBlueColor;
+  font-weight: 300;
+}
+.text-headings {
+  font-size:$fontSize*1.62;
+  font-weight:300;
+}
+.headings {
+  font:100 $fontSize*2.6 $mainFontFamily;
+}
+.page-heading {
+  font:100 $fontSize*3.8 $mainFontFamily;
+  color: #fff;
+  .bold-text {
+    font-weight: 500;
+  }
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.transformStart {
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+.transformEnd {
+  -webkit-transform: translate(0, -10px);
+  -moz-transform: translate(0, -10px);
+  -ms-transform: translate(0, -10px);
+  -o-transform: translate(0, -10px);
+  transform: translate(0, -10px);
+}
+.transformEndSm {
+  -webkit-transform: translate(0, -5px);
+  -moz-transform: translate(0, -5px);
+  -ms-transform: translate(0, -5px);
+  -o-transform: translate(0, -5px);
+  transform: translate(0, -5px);
+}

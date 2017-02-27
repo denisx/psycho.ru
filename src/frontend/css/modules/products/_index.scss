@@ -1,0 +1,326 @@
+.full-width {
+  display: block;
+  width:100%;
+  height: auto;
+  margin:0 auto;
+}
+.product-top-box {
+  padding:35px 0;
+  text-align: center;
+  height: 580px;
+  font-size: 0;
+  >.holder {
+    display: inline-block;
+    vertical-align: middle;
+    font-size:$fontSize;
+  }
+  &:after {
+    @extend .vertical-align;
+  }
+  h1 {
+    color: $darkBlueColor;
+  }
+  img {
+    width:100%;
+    max-width: 941px;
+  }
+  .holder {
+    font-size: 0;
+  }
+  >* {
+    font-size:$fontSize;
+  }
+  h1, .img-holder {
+    display: inline-block;
+    vertical-align: middle;
+    width:50%;
+  }
+  h1 {
+    text-align: left;
+  }
+  .img-holder img {
+    display: block;
+    margin:0 auto;
+  }
+}
+.promo-box {
+  padding:110px 0 75px;
+  h2 {
+    margin-bottom: 50px;
+  }
+  h3 {
+    text-align: left;
+    margin-top: 10px;
+  }
+  .big-blue-text {
+    display: block;
+    margin:0 0 90px;
+  }
+}
+.blue-grey {
+  background: $blueGreyColor;
+}
+.blue-grey-light {
+  background: $blueGreyLilghtColor;
+}
+.blue-dark {
+  background: $darkBlueColor;
+}
+.purple-dark {
+  background: $purpleDarkColor;
+}
+.brown-light {
+  background: $brownLightColor;
+}
+.green {
+  background: $greenColor;
+}
+.gray-light {
+  background: #f4f2ef;
+}
+.purple {
+  background: $purpleColor;
+}
+.purple-dark {
+  background: $purpleDarkColor;
+}
+.purple-light {
+  background: #f1e3f2;
+}
+.turquoise {
+  background: #5ba89c;
+}
+.orange {
+  background: #ff8a60;
+}
+.fuchsia {
+  background: #c54e75;
+}
+.cyan {
+  background: #359fd6;
+}
+.rose {
+  background: #f49c9e;
+}
+.purple-darkest {
+  background: #725775;
+}
+.heading-holder {
+  height: 240px;
+  font-size: 0;
+  text-align: center;
+  h2 {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    font:100 $fontSize*2.6 $mainFontFamily;
+  }
+  &:after {
+    @extend .vertical-align;
+  }
+}
+.list-color-section {
+  li {
+    height: 800px;
+    @include box-sizing(border-box);
+    font-size: 0;
+    text-align: center;
+    position: relative;
+    &:after {
+      @extend .vertical-align;
+    }
+    h1 {
+      color: #fff;
+      font:500 $fontSize*9 $mainFontFamily;
+      text-align: left;
+      margin: 0;
+    }
+    h3 {
+      text-align: left;
+    }
+    >div  {
+      display: inline-block;
+      vertical-align: middle;
+      &:after {
+        display: block;
+        clear: both;
+        content: '';
+      }
+    }
+    .img-holder {
+      font-size: 0;
+      img {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      &:after {
+        @extend .vertical-align;
+      }
+    }
+    .text-holder {
+      display: inline-block;
+      font-size: 0;
+    }
+    >div {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 0;
+    }
+    .text-holder, .img-holder {
+      vertical-align: middle;
+      display: inline-block;
+      width:50%;
+      @include box-sizing(border-box);
+      padding:10px 50px;
+    }
+    .text-holder {
+      font-size:$fontSize;
+      text-align: left;
+    }
+    img.full-width {
+      width:100%;
+     }
+  }
+}
+.list-ico {
+  padding:50px 0;
+  li {
+    padding:50px 0;
+    font-size: 0;
+    text-align: left;
+    h3 {
+      text-align: left;
+    }
+    .img-holder, .text-holder {
+      display: inline-block;
+      vertical-align: top;
+    }
+    .img-holder {
+      width:25%;
+      margin:0 0 20px;
+      img {
+        width: 85%;
+        vertical-align: top;
+      }
+    }
+    .text-holder {
+      width:75%;
+      font-size:$fontSize;
+    }
+  }
+}
+.list-ico {
+  &.columns {
+    li {
+      overflow: hidden;
+      .img-holder, .text-holder {
+        float: left;
+        width:50%;
+        padding: 10px 0 10px 42px;
+        @include box-sizing(border-box);
+      }
+      .img-holder {
+        padding-right: 42px;
+        padding-left: 0;
+      }
+      .text-holder {
+        height: 390px;
+        font-size: 0;
+        .holder {
+          font-size:$fontSize;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: left;
+        }
+        &:after {
+          @extend .vertical-align;
+        }
+      }
+      &:nth-child(2n) {
+        .text-holder {
+          padding-right: 42px;
+          padding-left: 0;
+        }
+        .img-holder {
+          float: right;
+          padding-right: 42px;
+          padding-left: 0;
+        }
+      }
+      .img-holder {
+        img {
+          width: 95%;
+        }
+      }
+    }
+  }
+}
+.client-list-holder {
+  position: relative;
+  background-color: #ffffff;
+  @include filter-gradient(#ffffff, #f5f3ef, vertical);
+  @include background-image(linear-gradient(top,  #ffffff 0%,#ffffff 50%,#f5f3ef 50%,#f5f3ef 50%,#f5f3ef 100%));
+  >div {
+    text-align: center;
+  }
+}
+.client-list {
+  display: inline-block;
+  font-size: 0;
+  text-align: left;
+  li {
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    background: #fff;
+    @include box-shadow(0 0 0 1px #dedfdf);
+    overflow: hidden;
+    position: relative;
+    @include transition-property(all);
+    @include transition-duration(0.1s);
+    @include transition-timing-function(ease-in);
+    font-size: 0;
+    vertical-align: top;
+    text-align: center;
+    &:hover {
+      @include box-shadow(0 0 0 1px #a94442);
+      position: relative;
+      z-index:2;
+    }
+    &:after {
+      @extend .vertical-align;
+    }
+    img {
+      font-size:$fontSize;
+      width:100%;
+      height: auto;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+.client-box {
+  padding:105px 0 0;
+  .l-600 {
+    margin-bottom:55px;
+  }
+}
+.product-form-section {
+  .form-box form {
+    position: relative;
+    z-index:3;
+  }
+  .left-decor-img,
+  .right-decor-img {
+    position: absolute;
+    z-index:1;
+    bottom: 0;
+    width:35%;
+  }
+  .right-decor-img {
+    right: 5%;
+  }
+  .left-decor-img {
+    left: 5%;
+  }
+}

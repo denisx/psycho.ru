@@ -24,7 +24,7 @@ gulp.task("copy", function() {  // копирование "статики"
 });
 
 gulp.task("sass", function() {  // весь сасс собирается в один бандл и минифицируется
-  return gulp.src("./src/frontend/css/*.scss")
+  return gulp.src("./src/frontend/css/styles.scss")
       .pipe(lintSass())
       .pipe(concatCss("bundle.css"))
       .pipe(cleanCss())

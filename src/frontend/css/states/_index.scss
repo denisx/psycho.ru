@@ -1,0 +1,45 @@
+.hidden {
+  visibility: hidden;
+}
+.has-error {
+  .icon-cancel {
+    display: block;
+  }
+  .icon-ok {
+    display: none;
+  }
+}
+.has-success {
+  .icon-ok {
+    display: block;
+  }
+  .icon-cancel {
+    display: none;
+  }
+}
+.form-box .form-row.has-error .text-input {
+  border:2px solid #a94442 !important;
+}
+.form-box .form-row.has-success .text-input {
+  border:2px solid #3c763d !important;
+}
+.alert-success.hidden {
+  display: none;
+}
+#popup-form-holder.hidden,
+form.hidden {
+  display: none;
+}
+#header.active {
+  .nav-toggle-btn span {
+    @include transform-rotate(135deg);
+    &:first-child {
+      @include transform-rotate(45deg);
+      top: 12px;
+      position: relative;
+    }
+    &:last-child {
+      opacity: 0;
+    }
+  }
+}

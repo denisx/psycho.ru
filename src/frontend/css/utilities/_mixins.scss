@@ -1,0 +1,14 @@
+@mixin transform-rotate($rotateDegree) {
+  -o-transform: rotate($rotateDegree);
+  -ms-transform: rotate($rotateDegree);
+  -moz-transform: rotate($rotateDegree);
+  -webkit-transform: rotate($rotateDegree);
+  transform: rotate($rotateDegree);
+}
+@mixin transform-translate($trX, $trY) {
+  -o-transform: translate($trX, $trY);
+  -ms-transform: translate($trX, $trY);
+  -moz-transform: translate($trX, $trY);
+  -webkit-transform: translate($trX, $trY);
+  transform: translate($trX, $trY);
+}

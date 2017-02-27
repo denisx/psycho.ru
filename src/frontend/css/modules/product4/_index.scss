@@ -1,0 +1,23 @@
+.wrapper-product4 {
+  .habits-box {
+    padding:0 0 30px;
+    .img-top-holder {
+      background-color: #ffffff; // Old browsers
+      @include filter-gradient(#dbe6f6, #ffffff, vertical); // IE6-9
+      @include background-image(linear-gradient(top, #dbe6f6 0%,#dbe6f6 18%,#ffffff 18%,#ffffff 100%));
+      img.full-width {
+        max-width: 840px;
+      }
+    }
+  }
+  .left-decor-img {
+    left: 10%;
+    width:18%;
+    bottom:2%;
+  }
+  .right-decor-img {
+    right: 3%;
+    width:19%;
+    bottom:1.7%;
+  }
+}

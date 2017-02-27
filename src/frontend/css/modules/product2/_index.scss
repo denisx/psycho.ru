@@ -1,0 +1,31 @@
+.wrapper-product2 {
+  .promo-box {
+    padding:101px 0 0;
+    .l-900 {
+      margin-bottom: 50px;
+    }
+    .img-holder {
+      @include filter-gradient(#ffffff, #f4f2ef, vertical);
+      @include background-image(linear-gradient(top,  #ffffff 0%,#ffffff 50%,#f4f2ef 50%,#f4f2ef 50%,#f4f2ef 100%));
+      img {
+        display: block;
+        width:100%;
+        max-width: 1725px;
+        margin:0 auto;
+      }
+    }
+  }
+  .result-box {
+    padding:105px 0 80px;
+  }
+  .left-decor-img {
+    left: 10%;
+    width:18%;
+    bottom:0.5%;
+  }
+  .right-decor-img {
+    right: 1%;
+    width:32%;
+    bottom:1.5%;
+  }
+}

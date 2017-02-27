@@ -1,0 +1,130 @@
+.wrapper-product1 {
+  .product-top-box h1 {
+    width: 64%;
+    position: relative;
+    z-index: 1;
+  }
+  .product-top-box .img-holder {
+    width: 35%;
+  }
+  .mark-list li .list-text {
+    font-size:$fontSize;
+  }
+  .involvement-list-box {
+    padding:75px 0;
+  }
+  .involvement-list {
+    font-size: 0;
+    >li {
+      margin:50px 0 0;
+      &:first-child {
+        margin: 0;
+      }
+    }
+    h3 {
+      text-align: left;
+    }
+    .img-holder, .text-holder {
+      display: inline-block;
+      width: 50%;
+      vertical-align: middle;
+    }
+    .text-holder {
+      font-size:$fontSize;
+    }
+    .img-holder {
+      img {
+        width:100%;
+        display: block;
+      }
+    }
+  }
+  .promo-box {
+    padding:101px 0 0;
+    .l-900 {
+      margin-bottom: 50px;
+    }
+    .img-holder {
+      @include filter-gradient(#ffffff, $brownLightColor, vertical);
+      @include background-image(linear-gradient(top,  #ffffff 0%,#ffffff 98%,$brownLightColor 98%,$brownLightColor 98%,$brownLightColor 100%));
+      max-width: 1450px;
+      margin:0 auto;
+      img {
+        width:100%;
+        display: block;
+      }
+    }
+  }
+  .preview-list {
+    overflow: hidden;
+    width: 1520px;
+    margin:0 auto;
+    li {
+      @include box-sizing(border-box);
+      display: inline-block;
+      padding: 40px;
+      margin: 0;
+      width: 380px;
+      height: 380px;
+      float: left;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      font-size:$fontSize;
+      h3 {
+        margin:5px 0 40px;
+        text-align: left;
+        color: #fff;
+      }
+      h3, p {
+        position: relative;
+        z-index: 1;
+      }
+      img {
+        width: 100%;
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      &.blue-dark img {
+        width:80%;
+        left:auto;
+        right: 0;
+      }
+      &.fuchsia img {
+        width:180px;
+        left:50%;
+        margin:0 0 0 -90px;
+        bottom: 15px;
+      }
+      &.cyan img {
+        width:136px;
+        left:50%;
+        margin:0 0 0 -78px;
+        bottom: 10px;
+      }
+      &.purple-darkest img {
+        width:230px;
+        left:auto;
+        right:12px;
+        bottom: 18px;
+      }
+    }
+  }
+  .left-decor-img {
+    left: 10%;
+    width:18%;
+    bottom:1.5%;
+  }
+  .right-decor-img {
+    right: 0;
+    width:24%;
+    bottom:0.4%;
+  }
+}

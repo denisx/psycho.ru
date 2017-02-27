@@ -1,0 +1,50 @@
+.l-1920, .l-1600, .l-1290, .l-1260, .l-1200, .l-900, .l-600 {
+  width:100%;
+  @include box-sizing(border-box);
+  max-width: $siteMaxWidth;
+  min-width: $siteMinWidth - $wrapperSidePaddings*2;
+  margin: 0 auto;
+  padding:0 $wrapperSidePaddings;
+  &:after {
+    @extend .after-style;
+  }
+}
+.l-1920 {
+  max-width: 1920px;
+}
+.l-1600 {
+  max-width: 1600px;
+}
+.l-1290 {
+  max-width: $siteMaxWidth + 30px;
+}
+.l-1260 {
+  max-width: 1260px;
+}
+.l-1200 {
+  max-width: 1180px;
+}
+.l-900 {
+  max-width: 900px;
+}
+.l-600 {
+  max-width: 600px;
+}
+.l-4col {
+  overflow: hidden;
+  li {
+    float: left;
+    width:25%;
+    @include box-sizing(border-box);
+  }
+}
+.l-3col {
+  font-size: 0;
+  li {
+    font-size:$fontSize;
+    display: inline-block;
+    vertical-align: top;
+    width:33.333%;
+    @include box-sizing(border-box);
+  }
+}

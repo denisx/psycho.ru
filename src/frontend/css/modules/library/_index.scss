@@ -1,0 +1,264 @@
+.library-top-box {
+  position: relative;
+  background: url(../media/images/library/bg-top-box.jpg) 50% 100% fixed;
+  @include background-size(cover);
+  height: 815px;
+  @include box-sizing(border-box);
+  padding:115px 0 0;
+  &:before {
+    display: block;
+    content: '';
+    background: rgba(0, 0, 0, 0.5);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+  }
+  h2 {
+    color: #fff;
+    text-align: left;
+  }
+  .l-900 {
+    position: relative;
+    z-index: 1;
+  }
+  .item-mark {
+    display: inline-block;
+    margin:0 0 30px;
+    &:before {
+      left:auto;
+      right: -15px;
+      border-width:15px 15px  0 0;
+    }
+    &:after {
+      left:auto;
+      right: -15px;
+      border-width:0 15px 15px  0;
+    }
+    &.korpkultura:before {
+      border-color: $purpleDarkColor transparent transparent transparent;
+    }
+    &.vovlechenost:before {
+      border-color: $greenColor transparent transparent transparent;
+    }
+    &.instrumenty-ocenki:before {
+      border-color: $blueGreyColor transparent transparent transparent;
+    }
+    &.poleznye-privuchki:before {
+      border-color: $purpleColor transparent transparent transparent;
+    }
+  }
+  .autor-box {
+    font-size: 0;
+    text-align: left;
+    margin:80px 0;
+    li {
+      display: inline-block;
+      width:50%;
+      @include box-sizing(border-box);
+      padding:0 10px 0 0;
+    }
+    .autor-frame {
+      color: #fff;
+      .img-holder {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        position: relative;
+        img {
+          position: relative;
+          display: block;
+        }
+      }
+      .autor-info {
+        margin:0 0 0 40px;
+        width: 145px;
+        display: inline-block;
+        vertical-align: middle;
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+.library-content {
+  background: #ffffff;
+  min-height: 700px;
+  position: relative;
+  &:after {
+    display: block;
+    position: absolute;
+    background: #fff;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    height:600px;
+    z-index: 0;
+  }
+  .l-1200 {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding:40px 0 0;
+    top: -200px;
+    &.relPos {
+      top:0 !important;
+    }
+  }
+  /*.l-1200 {
+    position: fixed;
+    z-index: 1;
+    background: #fff;
+    padding:40px 0 0;
+    top: 679px;
+    left:50%;
+    margin-left: -590px;
+    &.relPos {
+      position: relative;
+      left: 0;
+      margin:0 auto;
+      top:0 !important;
+    }
+  }*/
+
+}
+.banner {
+  position: relative;
+  padding:25px 25px 25px 290px;
+  @include box-sizing(border-box);
+  min-height: 98px;
+  font-size: 0;
+  text-align: center;
+  @include box-shadow(0 0 0 rgba(0, 0, 0, 0));
+  margin:75px 0;
+/*  &:hover {
+@include transition-property(all);
+    @include transition-duration(0.5s);
+    @include transition-timing-function(ease-in);
+@extend .transformEnd;
+  }*/
+  .banner-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  &.hover {
+    @include box-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+  }
+  &.vovlechenost {
+    background: $greenColor;
+  }
+  &.instr-ocenki {
+    background: $blueGreyColor;
+  }
+  &.korpkultura {
+    background: $purpleDarkColor;
+  }
+  &.privychki {
+    background: $purpleColor;
+  }
+  &:after {
+    clear: both;
+    display: block;
+    content: '';
+  }
+  &:before {
+    display: inline-block;
+    height:100%;
+    vertical-align: middle;
+    content: '';
+  }
+  img {
+    position: absolute;
+    left: 5px;
+    width: 255px;
+    bottom:-35px;
+  }
+  .banner-text, .btn {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .banner-text {
+    max-width: 330px;
+    margin:0 30px 0 0;
+    font-size:$fontSize;
+  }
+  .btn {
+    position: relative;
+    z-index: 2;
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+  }
+}
+.article-insert {
+  margin:30px auto;
+  max-width: 565px;
+  .heading {
+    display: block;
+    color: $brownColor;
+    text-transform: uppercase;
+    margin:0 0 5px;
+    padding:0 0 0 30px;
+  }
+  a {
+    display: inline-block;
+    padding:0 0 0 30px;
+    position: relative;
+    img {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      width: 23px;
+      height: 23px;
+      &.link-active-img {
+        display: none;
+      }
+    }
+    &:hover {
+      .link-active-img {
+        display: block;
+      }
+      .link-default-img {
+        display: none;
+      }
+    }
+  }
+}
+.social-btn-list {
+  text-align: center;
+  margin:20px 0 30px 0;
+  >li {
+    display: inline-block;
+    margin:0 15px;
+  }
+  .twitter-share-button {
+    vertical-align: bottom;
+  }
+}
+.text-heading {
+  text-align: left;
+  margin:120px 0 60px;
+}
+.font-serif {
+  font-family:$italicFontFamily;
+  font-style: italic;
+}
+.text-mark-box {
+  padding:60px 40px;
+  background: #DAEFED;
+  margin:0 0 20px;
+  p:last-child {
+    margin: 0;
+  }
+}
+.video-box {
+  margin:60px 0;
+}
