@@ -11,7 +11,7 @@ var proto = module.exports = {
    * @param {any} subject тема
    * @param {any} message текст
    */
-  sendSendFromRobot: function(to, subject, message) {
+  sendFromRobot: function(to, subject, message) {
     var smtpConfig = {
       service: 'Yandex',
       auth: {

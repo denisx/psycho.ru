@@ -21,7 +21,7 @@ exports.render = (req, res, next) => {
 <br/>Email: ${req.body.email}
 <br/><a href="${req.body.url}">Страница заявки</a>.`;
   // письмо просто отправляем асинхронно без всяких проверок
-  mail.sendSendFromRobot(process.env.PSYCHO_MAIL_MANAGER, subject, message);
+  mail.sendFromRobot(process.env.PSYCHO_MAIL_MANAGER, subject, message);
   // ответа не будет
   res.end();
 }
