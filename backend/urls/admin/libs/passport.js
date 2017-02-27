@@ -6,7 +6,7 @@ let db = require(`../../../models/db`);
 module.exports = function authentication(req, res, next) {
   passport.use('local', new LocalStrategy( // локальная стратегия
     function (username, password, done) {
-      if (username === process.env.PSYCHO_ADMIN_USER && password === process.env.PSYCHO_ADMIN_PWD) {
+      if (username === process.env.PSYCHO_ADMIN_USER && password === process.env.PSYCHO_ADMIN_PASS) {
         return done(null, {
           id: 1,
           username: 'admin',

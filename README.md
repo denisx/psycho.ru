@@ -14,7 +14,7 @@
 # база данных
 PSYCHO_DB_USER      // имя пользователя
 PSYCHO_DB_DATABASE  // база данных
-PSYCHO_DB_PWD       // пароль пользоватлея
+PSYCHO_DB_PASS      // пароль пользоватлея
 PSYCHO_DB_ADDR      // адрес БД
 PSYCHO_DB_PORT      // порт
 
@@ -26,7 +26,7 @@ PSYCHO_MAIL_MANAGER   // адрес менеджера
 
 #интерфейс администратора
 PSYCHO_ADMIN_USER     // логин админа
-PSYCHO_ADMIN_PWD      // пароль админа
+PSYCHO_ADMIN_PASS     // пароль админа
 ```
 
 ## Развертывание для разработки
