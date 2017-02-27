@@ -3,7 +3,6 @@
  * по какому-либо продукту
  */
 "use strict";
-var config = require(`${process.cwd()}/config.json`);
 
 exports.render = (req, res, next) => {
   // обработка только пост-запросов
@@ -22,7 +21,7 @@ exports.render = (req, res, next) => {
 <br/>Email: ${req.body.email}
 <br/><a href="${req.body.url}">Страница заявки</a>.`;
   // письмо просто отправляем асинхронно без всяких проверок
-  mail.sendSendFromRobot(config.managerEmail, subject, message);
+  mail.sendSendFromRobot(process.env.PSYCHO_MAIL_MANAGER, subject, message);
   // ответа не будет
   res.end();
 }

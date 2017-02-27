@@ -1,13 +1,12 @@
 let passport       = require('passport');
 let LocalStrategy  = require('passport-local').Strategy;
 let db = require(`../../../models/db`);
-let cfg = require(`${process.cwd()}/config.json`);
 
 // настройки аутентификации
 module.exports = function authentication(req, res, next) {
   passport.use('local', new LocalStrategy( // локальная стратегия
     function (username, password, done) {
-      if (username == cfg.admin.username && password == cfg.admin.password) {
+      if (username === process.env.PSYCHO_ADMIN_USER && password === process.env.PSYCHO_ADMIN_PWD) {
         return done(null, {
           id: 1,
           username: 'admin',

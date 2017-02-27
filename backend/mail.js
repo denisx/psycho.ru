@@ -1,9 +1,8 @@
 /**
  * Модуль для работы с электронной почтой и письмами
  */
-"use strict";
-var nodemailer = require("nodemailer");
-var config = require(`${process.cwd()}/config.json`);
+'use strict';
+const nodemailer = require('nodemailer');
 
 var proto = module.exports = {
   /**
@@ -14,25 +13,25 @@ var proto = module.exports = {
    */
   sendSendFromRobot: function(to, subject, message) {
     var smtpConfig = {
-      service: "Yandex",
+      service: 'Yandex',
       auth: {
-          user: config.emailRobot.user,
-          pass: config.emailRobot.pass
+          user: process.env.PSYCHO_MAIL_USER,
+          pass: process.env.PSYCHO_MAIL_PASS
       }
     };
     var mailOptions = {
-      from: config.emailRobot.from,
+      from: process.env.PSYCHO_MAIL_FROM,
       to: to,
       subject: subject,
       html: message
     };
 
     var transporter = nodemailer.createTransport(smtpConfig);
-    // письмо отправляем асинхронно и ничего не возвращаем, 
+    // письмо отправляем асинхронно и ничего не возвращаем,
     // есть смысл улучшить логику в будущем
     transporter.sendMail(mailOptions, function(error, info){
         if(error) {
-            console.log("error", error);
+            console.log('error', error);
         }
     });
   }

@@ -99,7 +99,7 @@ export NODE_ENV
 ```
 tar xvf psycho.ru.tar
 ```
-После в папке `psycho.ru` необходимо изменить конфигурационный файл `config.json`, вписав в него нужные параметры.
+После необходимо задать оставшиеся переменные окружения.
 
 ### <a name='pm2'></a> Менеджер процессов
 Используется pm2.
@@ -135,7 +135,7 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_max_temp_file_size 0;
-        proxy_pass http://localhost:8205;
+        proxy_pass http://localhost:8105;
         proxy_redirect off;
         proxy_read_timeout 240s;
     }
@@ -213,7 +213,7 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_max_temp_file_size 0;
-        proxy_pass http://localhost:8205;
+        proxy_pass http://localhost:8105;
         proxy_redirect off;
         proxy_read_timeout 240s;
     }
