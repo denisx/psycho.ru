@@ -33,7 +33,13 @@
         <% content %>
     </div>
 
-    <% if @path != "/" : %>
+    <% if @path.startsWith("/library") : %>
+      <footer id="footer">
+        <div class="l-1260">
+            <span class="phone-link">&copy; 1992&ndash;<%- @year %> &laquo;Психология и бизнес&raquo;</span>
+        </div>
+      </footer>
+    <% else if @path != "/" : %>
       <div class="footer-help-box">&nbsp;</div>
       <footer id="footer">
           <div class="l-1260">

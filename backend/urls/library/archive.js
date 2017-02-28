@@ -8,7 +8,7 @@ var db = require(`../../models/db.js`);
 
 exports.render = (req, res, next) => {
   db.articles.findAll({
-    attributes: ['id', 'title', 'shortDesc'],
+    attributes: ['id', 'title', 'short_descr'],
     order: 'id DESC'
   })
     .then((a) => {

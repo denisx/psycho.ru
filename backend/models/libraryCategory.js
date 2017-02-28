@@ -1,24 +1,25 @@
 /**
  * Модель таблицы категорий статей библиотеки
  */
-"use strict";
+'use strict';
 
 module.exports = function(sequelize, Datatypes) {
   return sequelize.define('libraryCategory', {
   // поля
-  id: {
-    primaryKey: true,
-    type: Datatypes.INTEGER,
-    autoIncrement: true
+    id: {
+      autoIncrement: true,
+      primaryKey: true,
+      type: Datatypes.INTEGER,
+    },
+    link: Datatypes.TEXT(), // ссылка
+    name: Datatypes.TEXT()  // название
   },
-  link: Datatypes.STRING(50), // ссылка
-  name: Datatypes.STRING(50)  // название
-  }, 
-  // опции
-  {
-    freezeTableName: true,
-    tableName: 'library_categories',
-    timestamps: false,
-    paranoid: true
-  });
-} 
+    // опции
+    {
+      freezeTableName: true,
+      paranoid: true,
+      tableName: 'library_categories',
+      timestamps: false,
+    }
+  );
+};

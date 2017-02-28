@@ -26,8 +26,8 @@ exports.editPost = function(req, res) {
       description: req.body.description,
       intro      : req.body.intro,
       keywords   : req.body.keywords,
+      short_descr: req.body.short_descr,
       title      : req.body.title,
-      shortDesc  : req.body.shortDesc,
     },
     {where: {id: req.params.id}}
   )

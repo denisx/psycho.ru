@@ -7,10 +7,19 @@ $(document).ready(function() {
     });
 
     // hover animation on article list elements
-    $('.article-list li').hover(function() {
-        $(this).addClass("hover-el").animate({"marginTop": "-10px"}, "500");
+    var articleListItem = $('.article-list li'),
+        banner = $('.banner');
+    articleListItem.hover(function() {
+        if( $(this).hasClass('element-item')) $(this).addClass("hover-el").animate({"marginTop": "-10px"}, "500");
+        else $(this).addClass("hover-el").animate({"top": "-10px"}, "500");
+    },function() {
+        if( $(this).hasClass('element-item')) $(this).removeClass("hover-el").animate({"marginTop": "0"}, "500");
+        else $(this).removeClass("hover-el").animate({"top": "0"}, "500");
+    });
+    banner.hover(function() {
+        $(this).addClass("hover").animate({"top": "-10px"}, "500");
     }, function() {
-        $(this).removeClass("hover-el").animate({"marginTop": "0"}, "500");
+        $(this).removeClass("hover").animate({"top": "0"}, "500");
     });
 
     // user-form validation
@@ -100,6 +109,19 @@ $(document).ready(function() {
         }
         lastScrollTop = st;
     });
+
+    // script for content animation on library page
+    if($("div").is(".library-content")) {
+        var librCont = $('.library-content'),
+            posStart = 200;
+            librAnim = librCont.find('.l-1200');
+        window.onscroll= function() {
+            var scrolled = window.pageYOffset || document.documentElement.scrollTop,
+                posScroll = -(posStart - scrolled);
+            librAnim.css('top', posScroll);
+            if (posScroll > 0) librAnim.css('top', 0);
+        };
+    }
 
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         $('.main-page-video video').hide();
