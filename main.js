@@ -4,7 +4,7 @@ let bodyParser = require('body-parser');
 let passport = require('passport');
 let flash = require('connect-flash');
 let cookieParser = require('cookie-parser');
-let session = require('express-session');
+let cookieSession = require('cookie-session');
 
 let app = express();
 
@@ -13,7 +13,7 @@ app.use(bodyParser.json()); // автопарсер json-а в теле запр
 app.use(bodyParser.urlencoded({extended: true}));  // to support URL-encoded bodies
 app.use(cookieParser());
 
-app.use(session({
+app.use(cookieSession({
 	cookie: { maxAge: 60000 },
 	secret: 'woot',
 	resave: false,
