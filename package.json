@@ -24,7 +24,7 @@
     "cookie-parser": "1.4.3",
     "ect": "0.5.9",
     "express": "4.14.0",
-    "express-session": "1.15.0",
+    "cookie-session": "*",
     "nodemailer": "2.7.1",
     "pagination": "0.4.4",
     "passport": "*",
