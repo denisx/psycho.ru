@@ -87,9 +87,9 @@ exports.seoRedirector = (req, res, next) => {
   if(/^biblio\/advert\/brend\/gvozd_ris$/.test(p))
     return r('library/457');
   if(/^biblio\/advert\/brend\/igry_cveta$/.test(p))
-    return r('library\1895');
+    return r('library/1895');
   if(/^biblio\/advert\/brend\/imya_privlekatelnoe$/.test(p))
-    return r('library\647');
+    return r('library/647');
   if(/^biblio\/hr[\/\w_\d\?=\.]*|library\/hr\/motivation$/.test(p))
     return r('library/assessment');
   if(/^biblio\/politica[\/\w_\d\?=\.]*$/.test(p))
