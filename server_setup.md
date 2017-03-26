@@ -52,7 +52,7 @@ sudo apt-get install postgresql-9.4
 sudo -u postgres psql
 
 # установка пароля
-alter user postgres password 'password'
+alter user postgres password 'password';
 
 # выход из psql
 \q
@@ -66,7 +66,7 @@ alter user postgres password 'password'
 psql -U postgres -h localhost
 
 # создаём БД `psycho5` в psql
-CREATE DATABASE psycho5
+CREATE DATABASE psycho5;
 
 # выход из psql
 \q
