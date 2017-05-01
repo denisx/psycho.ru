@@ -1,4 +1,4 @@
-/** 
+/**
  * Роутинг url-запросов
  * @module */
 
@@ -6,22 +6,22 @@
  * Главный парсер url-запросов
  */
 exports.appRouter = (req, res, next) => {
-  let rootPath = "./urls";  // папка с представлениями и логикой страниц
+  let rootPath = './urls',  // папка с представлениями и логикой страниц
   // полный путь к модулю, например "о компании", будет иметь вид
   // ./urls+/about
-  let modulePath = `${rootPath}${req.path}`;
-  if(req.path === "/") {  // главная страница
+    modulePath = `${rootPath}${req.path}`,
+    route;  // переменная с модулем для обработки запроса
+  if(req.path === '/') {  // главная страница
     modulePath = `${rootPath}/index`;
   }
-  else if(/^\/library/.test(req.path)) // библиотека
-  {
+  // библиотека
+  else if(/^\/library/.test(req.path)) {
     // все запросы, начинающеися с /library отправляем в модуль библиотеки
     modulePath = `${rootPath}/library`;
   }
 
-  let route;  // переменная с модулем для обработки запроса
   try {
-      route = require(modulePath);  // попытка загрузить модуль
+    route = require(modulePath);  // попытка загрузить модуль
   }
   catch(ex) {
     // модуль не найден, продолжим выполнение запроса без ошибки
@@ -30,4 +30,4 @@ exports.appRouter = (req, res, next) => {
   }
 
   route.render(req, res, next); // модуль найден, рендерим ответ
-}
+};
