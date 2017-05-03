@@ -1,6 +1,6 @@
 .library-top-box {
   position: relative;
-  background: url(../media/images/library/bg-top-box.jpg) 50% 100% fixed;
+  background: url(../media/images/library/bg-top-box.png) 50% 100% fixed;
   @include background-size(cover);
   height: 815px;
   @include box-sizing(border-box);
@@ -29,12 +29,12 @@
     &:before {
       left:auto;
       right: -15px;
-      border-width:15px 15px  0 0;
+      border-width:15px 15px 0 0;
     }
     &:after {
       left:auto;
       right: -15px;
-      border-width:0 15px 15px  0;
+      border-width:0 15px 15px 0;
     }
     &.korpkultura:before {
       border-color: $purpleDarkColor transparent transparent transparent;
