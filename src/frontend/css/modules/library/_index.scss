@@ -1,6 +1,6 @@
 .library-top-box {
   position: relative;
-  background: url(../media/images/library/bg-top-box.png) 50% 100% fixed;
+  background: url(../media/images/library/bg-top-box.png);
   @include background-size(cover);
   height: 815px;
   @include box-sizing(border-box);
