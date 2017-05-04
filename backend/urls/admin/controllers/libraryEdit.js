@@ -23,6 +23,7 @@ exports.editPost = function(req, res) {
     {
       author     : req.body.author,
       body       : req.body.body,
+      date_update: Date.now(),
       description: req.body.description,
       intro      : req.body.intro,
       keywords   : req.body.keywords,

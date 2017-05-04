@@ -37,13 +37,12 @@ function renderArticle(a, req, res) {
   if(a.category === 4) {
     model.category = '<span class="item-mark instrumenty-ocenki"><a href="/library/assessment">Оценка персонала</a></span>';
   }
-
+console.log(dateUpdate)
   // применение новых стилей библиотеки для статей
   // отредактированных после 27.02.17
   /* eslint-disable no-magic-numbers */
   if(dateUpdate.getFullYear() >= 2017
-    && dateUpdate.getMonth() >= 1
-    && dateUpdate.getDate() >= 28) {
+    && dateUpdate.getMonth() >= 1) {
     res.render('./library/article.html', model);
   }
   /* eslint-enable no-magic-numbers */
