@@ -15,23 +15,15 @@
     "gulp-sass": "3.1.0",
     "gulp-uglify": "2.0.1",
     "run-sequence": "^1.2.2",
-    "typescript": "2.1.5"
+    "spectre.css": "0.4.5"
   },
   "description": "главный сайт",
   "dependencies": {
     "body-parser": "1.16.0",
-    "connect-flash": "*",
-    "cookie-parser": "1.4.3",
     "ect": "0.5.9",
     "express": "4.14.0",
-    "cookie-session": "*",
     "nodemailer": "2.7.1",
-    "pagination": "0.4.4",
-    "passport": "*",
-    "passport-local": "*",
-    "require-tree": "1.1.1",
     "pg": "6.1.2",
-    "pg-hstore": "2.3.2",
     "sequelize": "3.30.0"
   },
   "scripts": {

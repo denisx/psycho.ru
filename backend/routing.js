@@ -19,6 +19,10 @@ exports.appRouter = (req, res, next) => {
     // все запросы, начинающеися с /library отправляем в модуль библиотеки
     modulePath = `${rootPath}/library`;
   }
+  // главная страница админки
+  else if(/^\/admin(\/)?$/.test(req.path)) {
+    res.redirect('/admin/library');
+  }
 
   try {
     route = require(modulePath);  // попытка загрузить модуль
