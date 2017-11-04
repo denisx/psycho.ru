@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="/media/psycho.ico" />
-</head>
-<body>
-  Список статей библиотеки
-</body>
+<% extend './admin/_admin' %>
+<div class="mb-2">
+  <input type="text" class="form-input" id="inpSearch" placeholder="ID или часть названия статьи">
+</div>
+<div id="divSearchResults" class="mt-2">
+</div>
+<% block "scripts" : %>
+<script src="/js/admin/library.js"></script>
+<% end %>

@@ -5,24 +5,31 @@
   <link rel="stylesheet" href="/css/spectre.min.css">
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="icon" href="/media/psycho.ico" />
+  <title>Страница авторизации</title>
 </head>
 <body>
-<div class="container grid-xs">
-  <div class="columns">
-    <div class="column col-6 col-mx-auto">
-      <div class="mt-2 hidden">
-        <span class="label label-error">Неверный логин или пароль</span>
-      </div>
-      <div class="pt-2">
-        <input class="form-input" type="text" id="inpLogin" placeholder="Логин">
-      </div>
-      <div class="pt-2">
-        <input class="form-input" type="password" id="inpPassword" placeholder="Пароль">
-      </div>
-      <div class="pt-2">
-        <button class="btn btn-primary centered" id="btnLogin">Войти</button>
+<input type="hidden" id="ansError" value="<%- @error %>">
+<input type="hidden" id="ansEmail" value="<%- @email %>">
+<form method="POST" action="/admin/auth/login">
+  <div class="container grid-xs">
+    <div class="columns">
+      <div class="column col-6 col-mx-auto">
+        <div class="mt-2 hidden" id="divError">
+          <span class="label label-error">Неверный логин или пароль</span>
+        </div>
+        <div class="pt-2">
+          <input class="form-input" type="text" id="inpLogin" name="login" placeholder="Логин">
+        </div>
+        <div class="pt-2">
+          <input class="form-input" type="password" id="inpPassword" name="password" placeholder="Пароль">
+        </div>
+        <div class="pt-2">
+          <button type="submit" class="btn btn-primary centered" id="btnLogin">Войти</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>
+<script src="/js/admin/login.js"></script>
 </body>
+</html>

@@ -1,8 +1,7 @@
 'use strict';
 
-const crypto = require('crypto');
-
-let router = require('express').Router();
+const crypto = require('crypto'),
+  router = require('express').Router();
 
 module.exports = router;
 

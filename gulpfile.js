@@ -19,7 +19,7 @@ gulp.task("rm", function() {  // очистка папки назначения
 });
 
 gulp.task("copy", function() {  // копирование "статики"
-  return gulp.src(["./backend/**", "./frontend/**", "./main.js", "./config.json"], {base:"./"})
+  return gulp.src(["./backend/**", "!./frontend/js/admin/**/*.js", "./frontend/**", "./main.js", "./config.json"], {base:"./"})
       .pipe(gulp.dest(outDir));
 });
 
@@ -37,6 +37,12 @@ gulp.task("sassold", function() { // сасс со стилями предыду
       .pipe(concatCss("bundle.css"))
       .pipe(cleanCss())
       .pipe(gulp.dest(`${outDir}/frontend/css/old`));
+});
+
+gulp.task("jsm", function() { // костыль! js админки копируется и минифицируется отдельно
+  return gulp.src("./frontend/js/admin/**/*.js")
+    .pipe(env.production(uglifyJS()))
+    .pipe(gulp.dest(`${outDir}/frontend/js/admin`)); // костыль! кладём бандл в кривую папку
 });
 
 gulp.task("jsc", function() {  // js фронтенда собирается в бандл и (для продакшена) минифицируется
@@ -126,6 +132,10 @@ gulp.task("srv", function() { // отладочный сервер
       .pipe(gulp.dest(`${outDir}/frontend/css/old`))
       .pipe(srv.notify());
   });
+  var w5 = gulp.watch([`./frontend/js/admin/**/*.js`], function(e){
+    gulp.src(e.path, {base: './frontend/js/admin'})
+    .pipe(gulp.dest(`${outDir}/frontend/js/admin`));
+  });
 });
 
 // инсталяция продакшен модулей для релизной сборки
@@ -150,6 +160,7 @@ gulp.task('build', () => {
     'jsd',
     'jsd2',
     'jsd3',
+    'jsm',
     'htmlm',
     'prodmods'
   );
@@ -165,6 +176,7 @@ gulp.task('default', () => {
     'jsd',
     'jsd2',
     'jsd3',
+    'jsm',
     'htmlm',
     'prodmods',
     'srv'

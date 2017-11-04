@@ -20,6 +20,7 @@
   "description": "главный сайт",
   "dependencies": {
     "body-parser": "1.16.0",
+    "cookie-parser": "1.4.3",
     "ect": "0.5.9",
     "express": "4.14.0",
     "nodemailer": "2.7.1",

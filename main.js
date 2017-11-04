@@ -1,6 +1,7 @@
-let express = require("express");
-let ect = require("ect"); // шаблонизатор
-let bodyParser = require('body-parser');
+const express = require("express");
+const ect = require("ect"); // шаблонизатор
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 // переменная с корнем приложения.
 // нужна для придания наглядности путям модулей в require
@@ -11,6 +12,7 @@ let app = express();
 app.use(express.static('frontend'));  // статические файлы
 app.use(bodyParser.json()); // автопарсер json-а в теле запросов
 app.use(bodyParser.urlencoded({extended: true}));  // to support URL-encoded bodies
+app.use(cookieParser());
 
 app.set("views", "./backend/urls"); // пути с html для express
 app.set("view engine", "ect");  // включение ect
