@@ -41,8 +41,8 @@ gulp.task("sassold", function() { // сасс со стилями предыду
 
 gulp.task("jsm", function() { // костыль! js админки копируется и минифицируется отдельно
   return gulp.src("./frontend/js/admin/**/*.js")
-    .pipe(env.production(uglifyJS()))
-    .pipe(gulp.dest(`${outDir}/frontend/js/admin`)); // костыль! кладём бандл в кривую папку
+    // .pipe(env.production(uglifyJS()))
+    .pipe(gulp.dest(`${outDir}/frontend/js/admin`));
 });
 
 gulp.task("jsc", function() {  // js фронтенда собирается в бандл и (для продакшена) минифицируется

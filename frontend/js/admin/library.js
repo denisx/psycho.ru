@@ -21,7 +21,7 @@ function init() {
     // отрисовка списка статей
     divSearchResults.innerHTML = '';
     for(let i = 0; i < answer.data.length; i++) {
-      divSearchResults.innerHTML += `<a href="/admin/library/article_edit?id=${answer.data[i].id}">${answer.data[i].title}</a><br/>`;
+      divSearchResults.innerHTML += `<a href="/admin/library/article_edit?id=${answer.data[i].id}" target="_blank">${answer.data[i].title}</a><br/>`;
     }
   }
 

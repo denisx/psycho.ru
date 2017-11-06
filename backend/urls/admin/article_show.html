@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="/css/bundle.css" />
+  <link rel="icon" href="/media/psycho.ico" />
+  <!-- ЗАГОЛОВОК -->
+  <title>Имидж политического деятеля и его составляющие</title>
+  <!-- ЗАГОЛОВОК : КОНЕЦ -->
+</head>
+<body>
+<div class="wrapper">
+  <div class="library-top-box">
+      <div class="l-900">
+          <!-- КАТЕГОРИЯ -->
+          <%- @category %>
+          <!-- КАТЕГОРИЯ : КОНЕЦ -->
+          <!-- ЗАГОЛОВОК -->
+          <h2>Имидж политического деятеля и его составляющие</h2>
+          <!-- ЗАГОЛОВОК : КОНЕЦ -->
+          <ul class="autor-box">
+              <li>
+                  <div class="autor-frame">
+                      <div class="autor-info small-text">
+                        <!-- АВТОР -->
+                        <em>Автор статьи:</em><p>Людмила Шибут</p>
+                        <!-- АВТОР : КОНЕЦ -->
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div class="library-content">
+      <div class="l-1200">
+          <div class="l-900">
+              <p><span class="big-blue-text">
+                <!-- ИНТРО -->
+                  Очень часто последователи политика имеют дело не со своими личными и непосредственными впечатлениями от лидера, его деятельности и его жизни, а с рассказом о лидере, с сообщением, подготовленным специально для восприятия другими лицами, содержащим определенную точку зрения и составленным с целью повлиять на получателя этого сообщения. Это сообщение может состоять из слов, демонстрации самого лидера или его поступков, политических символов и т.д. Сам же образ лидера формируется в результате коммуникации между политиком и аудиторией.
+                <!-- ИНТРО : КОНЕЦ -->
+              </span></p>
+              <!-- ТЕКСТ -->
+              <%- @a.body %>
+              <!-- ТЕКСТ : КОНЕЦ -->
+              <ul class="social-btn-list">
+                  <li>
+                      <!--<div id="vk_like"></div>
+                      <script type="text/javascript">
+                          VK.Widgets.Like("vk_like", {type: "button"});
+                      </script>-->
+                  </li>
+                  <li>
+                      <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                  </li>
+                  <li>
+                      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.psycho.ru/" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                  </li>
+              </ul><!--.social-btn-list-->
+          </div>
+      </div>
+  </div>
+</div><!-- .wrapper -->
+</body>
+</html>

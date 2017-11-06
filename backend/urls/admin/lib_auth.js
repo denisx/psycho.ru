@@ -70,6 +70,7 @@ module.exports = exports = {
         return resolve(true);
       })
       .catch(e => {
+        console.error(e);
         reject(e);
       });
     });

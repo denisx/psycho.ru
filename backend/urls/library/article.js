@@ -38,6 +38,56 @@ function renderArticle(a, req, res) {
     model.category = '<span class="item-mark instrumenty-ocenki"><a href="/library/assessment">Оценка персонала</a></span>';
   }
 
+  function renderPLinks(body) {
+    let s = {
+        b1: `
+          <div class="banner vovlechenost">
+            <img src="/media/images/library/library-banner01.svg" alt="">
+            <span class="banner-text small-text">##</span>
+            <a href="/products/involvement" class="btn">Узнать больше</a>
+          </div>`,
+        b2: `
+          <div class="banner korpkultura">
+            <img src="/media/images/library/library-banner02.svg" alt="">
+            <span class="banner-text small-text">##</span>
+            <a href="/products/corpcult" class="btn">Узнать больше</a>
+          </div>`,
+        b3: `
+          <div class="banner instr-ocenki">
+            <img src="/media/images/library/library-banner04.svg" alt="">
+            <span class="banner-text small-text">##</span>
+            <a href="/products/assessment" class="btn">Узнать больше</a>
+          </div>`,
+        b4: `
+          <div class="banner privychki">
+            <img src="/media/images/library/library-banner03.svg" alt="">
+            <span class="banner-text small-text">##</span>
+            <a href="/products/keyhabits" class="btn">Узнать больше</a>
+          </div>`},
+      tt = {
+        b1: 'Исследование вовлеченности',
+        b2: 'Корпоративная культура',
+        b3: 'Развивающая оценка',
+        b4: 'Обучение руководителей',
+      },
+      m = body.match(/##b\d@@[\w\d а-я.,;&?!]*##/gi);
+    for(let i=0; i<m.length;m++) {
+      let t = m[i].replace(/^##|##$/g, '').split('@@');
+      if(t.length < 2 || t[1] === '') {
+        t[1] = tt[t[0]];
+      }
+      let y = s[t[0]].replace(/##/g, t[1]);
+      body = body.replace(new RegExp(m[i]), y);
+    }
+    return body;
+  }
+
+  // подмена плашек с ссылками на продукты
+  model.body = renderPLinks(model.body);
+
+  // подмена основной картинки
+  
+
   // применение новых стилей библиотеки для статей
   // отредактированных после 27.02.17
   /* eslint-disable no-magic-numbers */

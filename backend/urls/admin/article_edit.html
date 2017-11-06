@@ -1,5 +1,69 @@
 <% extend './admin/_admin' %>
-<h5>Редактирование статьи</h5>
-<input type="text" class="form-input" name="title" value="<%- @a.title %>">
+<h5>Редактирование статьи #<%- @a.id %></h5>
+<a href="/admin/library/article_show?id=<%- @a.id %>" target="_blank">просмотр</a>
+<div class="container">
+  <div class="columns">
+    <div class="col-2 pb-2">
+      <label class="form-label">Категория</label>
+    </div>
+    <div class="col-10 pb-2">
+      <select id="category" class="form-select">
+        <% for category in @categories : %>
+          <option value="<%= category.id %>"
+            <% if @a.category == category.id : %>
+              selected
+            <% end %>
+          ><%= category.name %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-2 pb-2">
+      <label class="form-label">Название</label>
+    </div>
+    <div class="col-10 pb-2">
+      <input type="text" class="form-input" id="title" value="<%- @a.title %>">
+    </div>
+    <div class="col-2 pb-2">
+      <label class="form-label">Краткое описание</label>
+    </div>
+    <div class="col-10 pb-2">
+      <textarea rows="3" class="form-input" id="short_descr"><%- @a.short_descr %></textarea>
+    </div>
+    <div class="col-2 pb-2">
+      <label class="form-label">Вступление</label>
+    </div>
+    <div class="col-10 pb-2">
+      <textarea rows="3" class="form-input" id="intro"><%- @a.intro %></textarea>
+    </div>
+    <div class="col-2 pb-2">
+      <label class="form-label">Автор</label>
+    </div>
+    <div class="col-10 pb-2">
+      <input type="text" class="form-input" id="author" value="<%- @a.author %>">
+    </div>
+    <div class="col-2 pb-2">
+      <label class="form-label">Ключевые слова</label>
+    </div>
+    <div class="col-10 pb-2">
+      <input type="text" class="form-input" id="keywords" value="<%- @a.keywords %>">
+    </div>
+    <div class="col-2 pb-2">
+      <label class="form-label">Посисковое описание</label>
+    </div>
+    <div class="col-10 pb-2">
+      <input type="text" class="form-input" id="description" value="<%- @a.description %>">
+    </div>
+    <div class="col-2 pb-2">
+      <label class="form-label">Текст</label>
+    </div>
+    <div class="col-10 pb-2">
+      <textarea rows="10" class="form-input" id="body"><%- @a.body %></textarea>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary float-right" id="btnSave">Сохранить изменения</button>
+    </div>
+  </div>
+</div>
 <% block "scripts" : %>
+<script src="/js/admin/article_edit.js"></script>
 <% end %>

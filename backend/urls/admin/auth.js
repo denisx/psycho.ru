@@ -45,6 +45,7 @@ router.route('/login')
     }
   })
   .catch(e => {
+    console.error(e);
     next(e);
   });
 });
