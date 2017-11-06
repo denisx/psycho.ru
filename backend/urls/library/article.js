@@ -2,7 +2,8 @@
  * Отображение статьи
  */
 'use strict';
-const db = require('../../models/db.js');
+const db = require('../../models/db.js'),
+  fs = require('fs');
 
 // рендер выбранной статьи
 function renderArticle(a, req, res) {
@@ -18,7 +19,6 @@ function renderArticle(a, req, res) {
       year: new Date().getFullYear(),
     },
     dateUpdate = new Date(a.date_update);
-
   // TODO: переписать нижеследующий код определения категории
   // <span class="item-mark korpkultura"><a href="#">Корпкультура</a></span>
   // вовлеченность
@@ -71,6 +71,7 @@ function renderArticle(a, req, res) {
         b4: 'Обучение руководителей',
       },
       m = body.match(/##b\d@@[\w\d а-я.,;&?!]*##/gi);
+    if(!m) { return body; }
     for(let i=0; i<m.length;m++) {
       let t = m[i].replace(/^##|##$/g, '').split('@@');
       if(t.length < 2 || t[1] === '') {
@@ -86,7 +87,13 @@ function renderArticle(a, req, res) {
   model.body = renderPLinks(model.body);
 
   // подмена основной картинки
-  
+  try {
+    fs.accessSync(`../../frontend/media/imgs/library/${a.id}/${a.id}_head.png`, fs.constants.R_OK);
+    model.head_img = `url(../media/imgs/library/${a.id}/${a.id}_head.png)`;
+  }
+  catch(e) {
+    model.head_img = 'url(../media/imgs/library/head_img.png)';
+  }
 
   // применение новых стилей библиотеки для статей
   // отредактированных после 27.02.17

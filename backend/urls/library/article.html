@@ -38,3 +38,10 @@
         </div>
     </div>
 </div><!-- .wrapper -->
+<input type="hidden" id="hi" value="<%- @head_img%>">
+<script>
+  try {
+    document.getElementsByClassName('library-top-box')[0].style.background = document.getElementById('hi').value;
+  }
+  catch(e) {}
+</script>
