@@ -72,7 +72,8 @@ router.route('/article_update')
         description = $5,
         keywords = $6,
         short_descr = $7,
-        title = $8
+        title = $8,
+        date_update = NOW()
       WHERE id = $1;`,
     queryPars = [
       req.body.id,
