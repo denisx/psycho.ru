@@ -12,7 +12,7 @@ router.route('/')
   return crypto.pbkdf2(req.query.pwd, req.query.salt, iterations, keylen, 'sha512', (err, key) => {
     if(err) { console.error(err); }
     res.render('./admin/hash.html', {
-      // hash: key.toString('hex')
+      // hash: key.toString('hex') //
     });
   });
 });
