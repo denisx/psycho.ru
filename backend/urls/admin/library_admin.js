@@ -154,6 +154,9 @@ router.route('/article_show')
         b4: 'Обучение руководителей',
       },
       m = a.body.match(/##b\d@@[\w\d а-я.,;&?!]*##/gi);
+    if(!m) {
+      return a;
+    }
     for(let i=0; i<m.length;m++) {
       let t = m[i].replace(/^##|##$/g, '').split('@@');
       if(t.length < 2 || t[1] === '') {
