@@ -21,17 +21,30 @@
                 <p><span class="big-blue-text"><%- @intro %></span></p>
                 <%- @body %>
                 <ul class="social-btn-list">
-                    <li>
-                        <!--<div id="vk_like"></div>
+                    <!-- <li>
+                        <script type="text/javascript" src="https://vk.com/js/api/openapi.js?151"></script>
+
                         <script type="text/javascript">
-                            VK.Widgets.Like("vk_like", {type: "button"});
-                        </script>-->
+                        VK.init({apiId: 6333029, onlyWidgets: true});
+                        </script>
+                        <div id="vk_like"></div>
+                        <script type="text/javascript">
+                        VK.Widgets.Like("vk_like", {type: "button"});
+                        </script>
+                    </li> -->
+                    <li>
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.11';
+                        fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                        <div class="fb-like" data-href="https://www.psycho.ru" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
                     </li>
                     <li>
-                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.psycho.ru/" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru">Твитнуть</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                     </li>
                 </ul><!--.social-btn-list-->
             </div>
