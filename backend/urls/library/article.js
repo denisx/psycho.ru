@@ -98,8 +98,7 @@ function renderArticle(a, req, res) {
   // применение новых стилей библиотеки для статей
   // отредактированных после 27.02.17
   /* eslint-disable no-magic-numbers */
-  if(dateUpdate.getFullYear() >= 2017
-    && dateUpdate.getMonth() >= 1) {
+  if(dateUpdate.getFullYear() >= 2017) {
     res.render('./library/article.html', model);
   }
   /* eslint-enable no-magic-numbers */
