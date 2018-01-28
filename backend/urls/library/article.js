@@ -88,7 +88,7 @@ function renderArticle(a, req, res) {
 
   // подмена основной картинки
   try {
-    fs.accessSync(`../../frontend/media/imgs/library/${a.id}/${a.id}_head.png`, fs.constants.R_OK);
+    fs.accessSync(`${global.__base}/frontend/media/imgs/library/${a.id}/${a.id}_head.png`, fs.constants.R_OK);
     model.head_img = `url(../media/imgs/library/${a.id}/${a.id}_head.png)`;
   }
   catch(e) {
