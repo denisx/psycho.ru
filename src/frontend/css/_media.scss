@@ -17,7 +17,7 @@
   }
 }
 @media only screen and (max-width: 1660px), only screen and (max-device-width: 1660px) {
-  .wrapper-product1 .preview-list {
+  .wrapper-product1 .preview-list, .wrapper-product1 .preview-list3 {
     width: 1140px;
   }
 }
@@ -99,7 +99,7 @@
     }
       height: 690px;
   }
-  .wrapper-product1 .preview-list {
+  .wrapper-product1 .preview-list, .wrapper-product1 .preview-list3 {
     width: 760px;
   }
 }
@@ -349,7 +349,7 @@
   .product-top-box {
     height: auto;
   }
-  .wrapper-product1 .preview-list {
+  .wrapper-product1 .preview-list, .wrapper-product1 .preview-list3 {
     width: 380px;
   }
   .library-top-box .autor-box .autor-frame .autor-info {
@@ -737,7 +737,7 @@
   h2, .heading-holder h2 {
     font-size: 31px;
   }
-  .wrapper-product1 .preview-list {
+  .wrapper-product1 .preview-list, .wrapper-product1 .preview-list3 {
     @include box-sizing(border-box);
     padding:0 10px;
     width: 100%;

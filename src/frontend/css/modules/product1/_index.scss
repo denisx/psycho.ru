@@ -117,6 +117,68 @@
       }
     }
   }
+  .preview-list3 {
+    overflow: hidden;
+    width: 1140px;
+    margin:0 auto;
+    li {
+      @include box-sizing(border-box);
+      display: inline-block;
+      padding: 40px;
+      margin: 0;
+      width: 380px;
+      height: 380px;
+      float: left;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      font-size:$fontSize;
+      h3 {
+        margin:5px 0 40px;
+        text-align: left;
+        color: #fff;
+      }
+      h3, p {
+        position: relative;
+        z-index: 1;
+      }
+      img {
+        width: 100%;
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      &.blue-dark img {
+        width:80%;
+        left:auto;
+        right: 0;
+      }
+      &.fuchsia img {
+        width:180px;
+        left:50%;
+        margin:0 0 0 -90px;
+        bottom: 15px;
+      }
+      &.cyan img {
+        width:136px;
+        left:50%;
+        margin:0 0 0 -78px;
+        bottom: 10px;
+      }
+      &.purple-darkest img {
+        width:230px;
+        left:auto;
+        right:12px;
+        bottom: 18px;
+      }
+    }
+  }
   .left-decor-img {
     left: 10%;
     width:18%;
