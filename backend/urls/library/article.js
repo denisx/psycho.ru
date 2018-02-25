@@ -86,6 +86,30 @@ function renderArticle(a, req, res) {
   // подмена плашек с ссылками на продукты
   model.body = renderPLinks(model.body);
 
+  // вставка информации о предстоящих событиях
+  function insertEvents() {
+    let result = [],
+      b = {
+        title: 'Событие №1',
+        link: '/prfklfsd/sdfgjksd',
+        descr: 'Описание события на два или три предложения',
+        imageLink: '',
+      };
+
+    // тут нужно прочитать информацию о событиях из файла
+
+    result.push(Object.assign({}, b));
+
+    b.title = 'Повышение вовлеченности сотрудников';
+    b.link = '/';
+    b.descr = 'Важнейший принцип управления стандарта ICO 9000 — вовлечение сотрудников, которое «даёт возможность организации с выгодой использовать их способности». Однако для большинства руководителей вовлеченность остается камнем преткновения.';
+    result.push(Object.assign({}, b));
+
+    return result;
+  }
+
+  model.events = insertEvents();
+
   // подмена основной картинки
   try {
     fs.accessSync(`${global.__base}/frontend/media/imgs/library/${a.id}/${a.id}_head.png`, fs.constants.R_OK);
@@ -111,9 +135,9 @@ exports.render = (req, res, next) => {
   // если запрос по id, т.е. вида /library/[число]
   if(req.byId) {
     let id = /^\/library\/(\d{1,4})$/.exec(req.path)[1];
-    db.articles.findById(id)  // выбираем статью по id
-    .then((a) => renderArticle(a, req, res))
-    .catch(() => next());
+    db.articles.findById(id) // выбираем статью по id
+      .then((a) => renderArticle(a, req, res))
+      .catch(() => next());
   }
   // если запрос по ссылке,
   // т.е. вида /library/[ссылка категории]/[ссылка статьи]
@@ -128,14 +152,14 @@ exports.render = (req, res, next) => {
     // получим id категории по ссылке
     db.libCats.findOne({ where: {link: `${links[1]}`}})
       // после выберем нужную статью по id категории и ссылке самой статьи
-    .then((c) =>
-      db.articles.findOne({
-        where: {category: c.id, link: links[2]}
-      })
-      // выбранную статью срендерим
-      .then((a) => renderArticle(a, req, res))
-    )
-    .catch(() => next());
+      .then((c) =>
+        db.articles.findOne({
+          where: {category: c.id, link: links[2]}
+        })
+          // выбранную статью срендерим
+          .then((a) => renderArticle(a, req, res))
+      )
+      .catch(() => next());
     /* eslint-enable no-magic-numbers */
   }
 };

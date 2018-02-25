@@ -19,6 +19,15 @@
         <div class="l-1200">
             <div class="l-900">
                 <p><span class="big-blue-text"><%- @intro %></span></p>
+                <div style="background-color: #e2e2e2;">
+                    <h3>Ближайшие события</h3>
+                    <% for e in @events : %>
+                    <div style="padding-bottom: 10px;">
+                        <a href="<%= e.link %>"><%= e.title %></a>
+                        <%= e.descr %>
+                    </div>
+                    <% end %>
+                </div>
                 <%- @body %>
                 <ul class="social-btn-list">
                     <!-- <li>
