@@ -41,6 +41,13 @@ app.use((err, req, res, next) => {  // 500
     res.status(500).render("500.html");
   }
 });
+app.use((req, res, next) => {
+  if(res.locals.tplUrl) {
+    res.locals.year = new Date().getFullYear();
+    res.render(res.locals.tplUrl);
+  }
+  else next();
+});
 // 404
 app.use((req, res, next) => { res.status(404).render("404.html"); });
 
