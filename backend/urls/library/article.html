@@ -19,6 +19,7 @@
         <div class="l-1200">
             <div class="l-900">
                 <p><span class="big-blue-text"><%- @intro %></span></p>
+                <% if @events.length : %>
                 <div style="background-color: #e2e2e2;">
                     <h3>Ближайшие события</h3>
                     <% for e in @events : %>
@@ -28,6 +29,7 @@
                     </div>
                     <% end %>
                 </div>
+                <% end %>
                 <%- @body %>
                 <ul class="social-btn-list">
                     <!-- <li>
