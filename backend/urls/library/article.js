@@ -90,7 +90,10 @@ function renderArticle(a, req, res) {
   // из файла /frontend/media/events.json
   function insertEvents() {
     let result = [];
-    result = JSON.parse(fs.readFileSync('./frontend/media/events.json', 'utf8'));
+    try {
+      result = JSON.parse(fs.readFileSync('./frontend/media/events.json', 'utf8'));
+    }
+    catch (e) { }
     return result;
   }
 
