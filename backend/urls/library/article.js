@@ -8,16 +8,16 @@ const db = require('../../models/db.js'),
 // рендер выбранной статьи
 function renderArticle(a, req, res) {
   let model = {
-    author: a.author,
-    body: a.body,
-    description: a.description,
-    intro: a.intro,
-    keywords: a.keywords,
-    path: req.path,
-    title: a.title,
-    title_image_url: a.title_image_url,
-    year: new Date().getFullYear(),
-  },
+      author: a.author,
+      body: a.body,
+      description: a.description,
+      intro: a.intro,
+      keywords: a.keywords,
+      path: req.path,
+      title: a.title,
+      title_image_url: a.title_image_url,
+      year: new Date().getFullYear(),
+    },
     dateUpdate = new Date(a.date_update);
   // TODO: переписать нижеследующий код определения категории
   // <span class="item-mark korpkultura"><a href="#">Корпкультура</a></span>

@@ -26,18 +26,18 @@ module.exports = exports = {
         WHERE LOWER(email) = LOWER($1);`,
       queryPars = [req.cookies.auth.email];
     return db.execute(query, queryPars)
-    .then(u => {
-      let user = u.rows[0];
-      // хэши пароля не совпадают
-      if(req.cookies.auth.pwdhash !== user.password) { return false; }
-      // всё нормально
-      req.user = user;
-      return true;
-    })
-    .catch(e => {
-      console.error(e);
-      return false;
-    });
+      .then(u => {
+        let user = u.rows[0];
+        // хэши пароля не совпадают
+        if(req.cookies.auth.pwdhash !== user.password) { return false; }
+        // всё нормально
+        req.user = user;
+        return true;
+      })
+      .catch(e => {
+        console.error(e);
+        return false;
+      });
   },
 
   /**
@@ -52,27 +52,27 @@ module.exports = exports = {
           WHERE LOWER(email) = LOWER($1);`,
         queryPars = [email];
       db.execute(query, queryPars)
-      .then(u => { // сверим его с выбранным из БД
-        let user = u.rows[0], ck;
-        if(!user || password !== user.password) {
-          return resolve(false); // если не совпало, то досвидания
-        }
-        ck = { // соберём данные авторизационной куки
-          email: email, // адрес почты
-          id: user.id, // id пользователя
-          pwdhash: user.password
-        };
-        res.cookie('auth', ck, { // отправим куку
-          expires:  generateExpDate(),
-          httpOnly: true,
-          secure: Boolean(process.env.PSYCHO_HTTPS)
+        .then(u => { // сверим его с выбранным из БД
+          let user = u.rows[0], ck;
+          if(!user || password !== user.password) {
+            return resolve(false); // если не совпало, то досвидания
+          }
+          ck = { // соберём данные авторизационной куки
+            email: email, // адрес почты
+            id: user.id, // id пользователя
+            pwdhash: user.password
+          };
+          res.cookie('auth', ck, { // отправим куку
+            expires:  generateExpDate(),
+            httpOnly: true,
+            secure: Boolean(process.env.PSYCHO_HTTPS)
+          });
+          return resolve(true);
+        })
+        .catch(e => {
+          console.error(e);
+          reject(e);
         });
-        return resolve(true);
-      })
-      .catch(e => {
-        console.error(e);
-        reject(e);
-      });
     });
   },
 
@@ -82,31 +82,31 @@ module.exports = exports = {
    * реализацию, при необходимости, можно сильно оптимизировать
    */
   need: function (req, res, next) {
-    let redirectUrl = `/admin/auth/login?ru=${req.originalUrl}`;
-    if(!req.cookies.auth) { // для начала выясним, есть ли авторизационная кука
-      return res.redirect(redirectUrl);
-    }
-    // выбираем пользователя с указанным email из БД
-    let query = `
+    let redirectUrl = `/admin/auth/login?ru=${req.originalUrl}`,
+      query = `
         SELECT *
         FROM users
         WHERE LOWER(email) = LOWER($1);`,
       queryPars = [req.cookies.auth.email];
+    if(!req.cookies.auth) { // для начала выясним, есть ли авторизационная кука
+      return res.redirect(redirectUrl);
+    }
+    // выбираем пользователя с указанным email из БД
     db.execute(query, queryPars)
-    .then(u => {
-      let user = u.rows[0];
-      if(!user) { // пользователя нет в БД. сотрём куки
-        return res.clearCookie('auth').redirect(redirectUrl);
-      }
-      // хэши пароля не совпадают, также стираем куки
-      if(req.cookies.auth.pwdhash !== user.password) {
-        return res.clearCookie('auth').redirect(redirectUrl);
-      }
-      // всё нормально
-      req.user = user;
-      return next();
-    })
-    .catch(e => next(e));
+      .then(u => {
+        let user = u.rows[0];
+        if(!user) { // пользователя нет в БД. сотрём куки
+          return res.clearCookie('auth').redirect(redirectUrl);
+        }
+        // хэши пароля не совпадают, также стираем куки
+        if(req.cookies.auth.pwdhash !== user.password) {
+          return res.clearCookie('auth').redirect(redirectUrl);
+        }
+        // всё нормально
+        req.user = user;
+        return next();
+      })
+      .catch(e => next(e));
   },
 
   /**

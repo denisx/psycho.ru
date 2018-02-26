@@ -15,21 +15,21 @@ module.exports = function(sequelize, Datatypes) {
       defaultValue: 5,
       type: Datatypes.INTEGER,
     },
-    date_create: Datatypes.DATE,  // дата создания
-    description: Datatypes.TEXT(),  // сео - описание
+    date_create: Datatypes.DATE, // дата создания
+    description: Datatypes.TEXT(), // сео - описание
     id: {
       autoIncrement: true,
       primaryKey: true,
       type: Datatypes.INTEGER,
     },
-    intro: Datatypes.TEXT,  // вступление
-    keywords: Datatypes.TEXT(),  // сео - ключевые слова
+    intro: Datatypes.TEXT, // вступление
+    keywords: Datatypes.TEXT(), // сео - ключевые слова
     link: { // ссылка
       allowNull: false,
       type: Datatypes.TEXT(),
     },
-    short_descr: Datatypes.TEXT,  // краткое описание
-    title: {  // заголовок
+    short_descr: Datatypes.TEXT, // краткое описание
+    title: { // заголовок
       allowNull: false,
       type: Datatypes.TEXT(),
     },
@@ -38,13 +38,13 @@ module.exports = function(sequelize, Datatypes) {
     },
   },
   // опции
-    {
-      createdAt: 'date_create',
-      deletedAt: 'date_delete',
-      freezeTableName: true,
-      paranoid: true,
-      tableName: 'library_articles',
-      timestamps: true,
-      updatedAt: 'date_update',
-    });
+  {
+    createdAt: 'date_create',
+    deletedAt: 'date_delete',
+    freezeTableName: true,
+    paranoid: true,
+    tableName: 'library_articles',
+    timestamps: true,
+    updatedAt: 'date_update',
+  });
 };
