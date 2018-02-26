@@ -33,6 +33,7 @@ app.use('/admin/library', require(__base + '/backend/urls/admin/library_admin'))
 app.use(require("./backend/routing").appRouter);  // маршрутизация
 
 app.use((err, req, res, next) => {  // 500
+  console.error(e);
   if(app.get("env") === "development") {
     res.status(500).render(err);
   }
