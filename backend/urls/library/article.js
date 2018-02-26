@@ -87,29 +87,10 @@ function renderArticle(a, req, res) {
   model.body = renderPLinks(model.body);
 
   // вставка информации о предстоящих событиях
+  // из файла /frontend/media/events.json
   function insertEvents() {
     let result = [];
-    let content = fs.readFileSync('./frontend/media/events.json', 'utf8');
-    console.log(content);
-    //result = JSON.parse(fs.readFileSync('./frontend/media/events.json', 'utf8'));
-
-    // let result = [],
-    //   b = {
-    //     title: 'Событие №1',
-    //     link: '/prfklfsd/sdfgjksd',
-    //     descr: 'Описание события на два или три предложения',
-    //     imageLink: '',
-    //   };
-
-    // // тут нужно прочитать информацию о событиях из файла
-
-    // result.push(Object.assign({}, b));
-
-    // b.title = 'Повышение вовлеченности сотрудников';
-    // b.link = '/';
-    // b.descr = 'Важнейший принцип управления стандарта ICO 9000 — вовлечение сотрудников, которое «даёт возможность организации с выгодой использовать их способности». Однако для большинства руководителей вовлеченность остается камнем преткновения.';
-    // result.push(Object.assign({}, b));
-
+    result = JSON.parse(fs.readFileSync('./frontend/media/events.json', 'utf8'));
     return result;
   }
 
