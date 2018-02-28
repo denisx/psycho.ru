@@ -2,8 +2,8 @@
  * Отображение статьи
  */
 'use strict';
-const db = require('../../models/db.js'),
-  fs = require('fs');
+const fs = require('fs'),
+  db = require('../../models/pg_db.js');
 
 // рендер выбранной статьи
 function renderArticle(a, req, res) {
@@ -124,13 +124,22 @@ exports.render = (req, res, next) => {
   // если запрос по id, т.е. вида /library/[число]
   if (req.byId) {
     let id = /^\/library\/(\d{1,4})$/.exec(req.path)[1];
-    db.articles.findById(id) // выбираем статью по id
-      .then((a) => renderArticle(a, req, res))
-      .catch(() => next());
+
+    let query = `
+      SELECT *
+      FROM library_articles
+      WHERE id = $1;`;
+    db.execute(query, [id])
+      .then((a) => {
+        // console.log(a)
+        // console.log(a.rows)
+        // console.log(a.rows[0])
+        renderArticle(a.rows[0], req, res);
+      })
+      .catch((e) => next(e));
   }
   // если запрос по ссылке,
   // т.е. вида /library/[ссылка категории]/[ссылка статьи]
-  // происходит 2 запроса к базе, что плохо, но, как временный вариант, пойдет
   else if (req.byLink) {
     let links = /^\/library\/([\w\d_]{1,50})\/([\w\d_]{1,100})$/.exec(req.path);
     /**
@@ -138,17 +147,17 @@ exports.render = (req, res, next) => {
      * links[2] - ссылочное название статьи
      */
     /* eslint-disable no-magic-numbers */
-    // получим id категории по ссылке
-    db.libCats.findOne({ where: { link: `${links[1]}` } })
-      // после выберем нужную статью по id категории и ссылке самой статьи
-      .then((c) =>
-        db.articles.findOne({
-          where: { category: c.id, link: links[2] }
-        })
-          // выбранную статью срендерим
-          .then((a) => renderArticle(a, req, res))
-      )
-      .catch(() => next());
+    let query = `
+      SELECT la.id
+      FROM library_categories lc, library_articles la
+      WHERE lc.link = $1
+        AND la.link = $2
+        AND lc.id = la.category;`;
+    db.execute(query, [links[1], links[2]])
+      .then((a) => {
+        res.redirect(301, `${req.protocol}://${req.get('host')}/library/${a.rows[0].id}`)
+      })
+      .catch((e) => next(e));
     /* eslint-enable no-magic-numbers */
   }
 };
