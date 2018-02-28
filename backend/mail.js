@@ -4,7 +4,7 @@
 'use strict';
 const nodemailer = require('nodemailer');
 
-var proto = module.exports = {
+let proto = module.exports = {
   /**
    * Отправка письма с ящика robot
    * @param {any} to кому
@@ -12,27 +12,27 @@ var proto = module.exports = {
    * @param {any} message текст
    */
   sendFromRobot: function(to, subject, message) {
-    var smtpConfig = {
-      service: 'Yandex',
+    let smtpConfig = {
       auth: {
-          user: process.env.PSYCHO_MAIL_USER,
-          pass: process.env.PSYCHO_MAIL_PASS
-      }
+        pass: process.env.PSYCHO_MAIL_PASS,
+        user: process.env.PSYCHO_MAIL_USER,
+      },
+      service: 'Yandex',
     };
-    var mailOptions = {
+    let mailOptions = {
       from: process.env.PSYCHO_MAIL_FROM,
-      to: to,
+      html: message,
       subject: subject,
-      html: message
+      to: to,
     };
 
-    var transporter = nodemailer.createTransport(smtpConfig);
+    let transporter = nodemailer.createTransport(smtpConfig);
     // письмо отправляем асинхронно и ничего не возвращаем,
     // есть смысл улучшить логику в будущем
     transporter.sendMail(mailOptions, function(error, info){
-        if(error) {
-            console.log('error', error);
-        }
+      if(error) {
+        console.error('error', error);
+      }
     });
   }
 };
