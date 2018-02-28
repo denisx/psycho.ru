@@ -4,20 +4,24 @@
  * а не только архивные. 
  */
 "use strict";
-var db = require(`../../models/db.js`);
+var db = require(`../../models/pg_db.js`);
 
 exports.render = (req, res, next) => {
-  db.articles.findAll({
-    attributes: ['id', 'title', 'short_descr'],
-    order: 'id DESC'
-  })
+  let query = `
+    SELECT 
+      id
+      ,title
+      ,short_descr
+    FROM library_articles
+    ORDER BY id DESC;`;
+  db.execute(query, [])
     .then((a) => {
       var model = {
         title: "Архив",
         keywords: "",
         description: "",
         year: new Date().getFullYear(),
-        articles: a // массив со статьями
+        articles: a.rows // массив со статьями
       };
       res.render(`./library/archive.html`, model);
     });
