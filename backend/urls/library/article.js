@@ -70,7 +70,7 @@ function renderArticle(a, req, res) {
         b3: 'Развивающая оценка',
         b4: 'Обучение руководителей',
       },
-      m = body.match(/##b\d@@[\w\d а-я.,;&?!]*##/gi);
+      m = body.match(/##b\d@@[\w\d а-яё.,;&?!]*##/gi);
     if (!m) { return body; }
     for (let i = 0; i < m.length; m++) {
       let t = m[i].replace(/^##|##$/g, '').split('@@');
